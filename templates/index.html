@@ -12,12 +12,22 @@
             background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
             color: #ffffff;
             background-image: url("{{ url_for('static',filename='background.jpg') }}");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ensure all elements use border-box */
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         /* Navigation bar */
         nav {
             background-color: #111;
-            padding: 15px 30px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -25,6 +35,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            flex-wrap: wrap;
         }
 
         nav .logo {
@@ -38,6 +49,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-wrap: wrap;
         }
 
         nav ul li {
@@ -49,31 +61,58 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
+            padding: 5px;
         }
 
         nav ul li a:hover {
             color: #00ffe7;
         }
 
-        /* Main content */
+        /* College name section */
+        .C_name {
+            text-align: center;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 15px;
+            width: 100%;
+        }
+
+        .C_name div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .C_name h1 {
+            font-size: 1.8em;
+            margin: 0;
+            text-align: center;
+        }
+
+        .C_name h2, .C_name h4 {
+            color: #00ffe7;
+            margin: 10px 0;
+        }
+
+        .C_name img {
+            width: 80px;
+            height: 100px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Main hero section */
         .hero {
             text-align: center;
-            padding: 100px 20px;
+            padding: 60px 20px;
             background: rgba(0, 0, 0, 0.3);
         }
 
-        .C_name{
-            text-align:center;
-            font-size: 18px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px 10px;
-        }
-        .C_name h3{
-            color: #00ffe7;
-        }
-        .C_name img{
-            width: 100px;
-            height: 120px;
+        .hero img {
+            max-width: 100%;
+            height: auto;
         }
 
         .hero h1 {
@@ -92,9 +131,10 @@
         /* Form container styling */
         #Registration-form {
             max-width: 400px;
+            width: 100%;
             margin: 30px auto;
             background: rgba(0, 0, 0, 0.7);
-            padding: 25px 30px;
+            padding: 25px;
             border-radius: 8px;
             box-shadow: 0 0 15px #00ffe7;
         }
@@ -112,7 +152,7 @@
         /* Input fields styling */
         #Registration-form input[type="text"] {
             width: 100%;
-            padding: 8px 10px;
+            padding: 12px;
             margin-bottom: 20px;
             border: 1.5px solid #00ffe7;
             border-radius: 5px;
@@ -137,11 +177,12 @@
             color: #111;
             font-weight: bold;
             font-size: 1.2em;
-            padding: 10px 25px;
+            padding: 12px 25px;
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-family: 'Brush Script MT', cursive;
+            width: 100%;
         }
 
         /* Submit button hover */
@@ -150,16 +191,9 @@
             color: #f0f0f0;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            #Registration-form {
-                padding: 20px;
-                margin: 20px 10px;
-            }
-        }
-
+        /* Sections */
         section {
-            padding: 60px 20px;
+            padding: 40px 20px;
             max-width: 1000px;
             margin: auto;
         }
@@ -168,6 +202,7 @@
             color: #00ffe7;
         }
 
+        /* Footer */
         footer {
             text-align: center;
             padding: 20px;
@@ -176,21 +211,109 @@
             font-size: 0.9em;
         }
 
-        @media (max-width: 600px) {
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px 15px;
+            }
+            
             nav ul {
-                flex-direction: column;
-                align-items: flex-end;
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
             }
 
-            nav ul li {
-                margin: 10px 0;
+            .C_name {
+                font-size: 16px;
+                padding: 15px 10px;
+            }
+
+            .C_name h1 {
+                font-size: 1.4em;
+            }
+
+            .C_name img {
+                width: 60px;
+                height: 75px;
+            }
+
+            .hero {
+                padding: 40px 15px;
             }
 
             .hero h1 {
                 font-size: 2em;
             }
+
+            section {
+                padding: 30px 15px;
+            }
+
+            #Registration-form {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            nav .logo {
+                font-size: 1.3em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 8px 0;
+            }
+
+            .C_name h1 {
+                font-size: 1.2em;
+            }
+
+            .C_name div {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 1.8em;
+            }
+
+            section {
+                padding: 20px 10px;
+            }
+
+            #Registration-form {
+                margin: 15px 5px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .C_name h1 {
+                font-size: 1.1em;
+            }
+
+            .hero h1 {
+                font-size: 1.6em;
+            }
+
+            nav .logo {
+                font-size: 1.2em;
+            }
         }
     </style>
+
 </head>
 <body>
 
@@ -221,7 +344,28 @@
     <!-- About Section -->
     <section id="about">
         <h2>About Us</h2>
-        <p>it is a tech related event obviously</p>
+        <p>The Cybernauts student association of the
+Department of Computer Science is dedicated to
+motivating students to explore the world of
+computer science, develop innovative tools, and
+cultivate a genuine passion for the field. To
+complement and enhance the academic curriculum,
+the association has planned an Inter-Collegiate
+Technical Competition titled “Techtonic – The
+Epicenter of Innovation”, exclusively for
+undergraduate Computer Science students from Arts
+and Science colleges in and around Chennai. The
+event will be held on <strong>September 12, 2025</strong> at the
+Anderson Hall, Madras Christian College.
+<strong>“Techtonic”</strong> symbolizes the powerful and
+transformative influence of technology on the world,
+suggesting a seismic shift and significant
+advancements in the tech industry. The event aims to
+explore and showcase groundbreaking innovations
+that are reshaping the technological landscape.
+Featuring six diverse technical events, it provides an
+excellent platform for you to exhibit, promote, and
+advertise your products.</p>
     </section>
 
     <section id="Register">
