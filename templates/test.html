@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Todo List</title>
+    </head>
+    <body>
+        <h1>Hello {{value}}</h1>
+        <table>
+            <tr>
+                <th>SNo</th>
+                <th>Name</th>
+                <th>College</th>
+                <th>Age</th>
+                <th>Eid</th>
+            </tr>
+            {% for val in lists %}
+            <tr>
+                <td>{{val.SNo}}</td>
+                <td>{{val.S1_name}}</td>
+                <td>{{val.Clg_name}}</td>
+                <td>{{val.Age}}</td>
+                <td>{{val.Event_ID}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

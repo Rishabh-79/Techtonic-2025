@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techtonic - Technology Event</title>
+    <style>
+        /* Tech-themed background */
+        body {
+            margin: 0;
+            font-family: 'Brush Script MT (cursive)', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            color: #ffffff;
+            background-image: url("{{ url_for('static',filename='background.jpg') }}");
+        }
+
+        /* Navigation bar */
+        nav {
+            background-color: #111;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            color: #00ffe7;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #00ffe7;
+        }
+
+        /* Main content */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .C_name{
+            text-align:center;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 10px;
+        }
+        .C_name h3{
+            color: #00ffe7;
+        }
+        .C_name img{
+            width: 100px;
+            height: 120px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #00ffe7;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: auto;
+            color: #ddd;
+        }
+        
+        /* Form container styling */
+        #Registration-form {
+            max-width: 400px;
+            margin: 30px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #00ffe7;
+        }
+
+        /* Label styling */
+        #Registration-form label {
+            display: block;
+            color: #00ffe7;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-family: 'Times New Roman';
+            font-size: 1.1em;
+        }
+
+        /* Input fields styling */
+        #Registration-form input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 20px;
+            border: 1.5px solid #00ffe7;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #eee;
+            font-size: 1em;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        /* Input focus effect */
+        #Registration-form input[type="text"]:focus {
+            border-color: #00fff0;
+            outline: none;
+            box-shadow: 0 0 5px #00ffe7;
+        }
+
+        /* Submit button styling */
+        #Registration-form input[type="submit"] {
+            background-color: #00ffe7;
+            border: none;
+            color: #111;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        /* Submit button hover */
+        #Registration-form input[type="submit"]:hover {
+            background-color: #00c4b3;
+            color: #f0f0f0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            #Registration-form {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #00ffe7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #111;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Techtonic</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#Register">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+     <div class="C_name">
+        <div>
+        <img src="{{ url_for('static',filename='image.png') }}" alt="College Logo" style="display:inline-block;">
+        <h1 style="display:inline-block;">Madras Christian College(AUTONOMOUS)</h1>
+        </div>
+        <h2>Department of Computer Science(SFS)</h2>
+        <h4>Shift-II</h4>
+     </div>
+    <div class="hero">
+        <img src="{{ url_for('static',filename='final-T2025.png') }}" alt="">
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>it is a tech related event obviously</p>
+    </section>
+
+    <section id="Register">
+        <h2>Register</h2>
+        <form action="/" method="POST" id="Registration-form">
+            <div>
+                <label>Name:</label>
+                <input type="text" name="Name" />
+            </div>
+            <div>
+                <label>College:</label>
+                <input type="text" name="Clg" />
+            </div>
+            <div>
+                <label>Age:</label>
+                <input type="text" name="Age" id="Age"/>
+            </div>
+            <div>
+                <label>Event ID:</label>
+                <input type="text" name="Eid" id="Eid"/>
+            </div>
+            <div>
+                <input type="submit" >
+            </div>
+        </form>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule">
+        <h2>Event Schedule</h2>
+        <p><strong>10:00 AM</strong> - opening</p>
+        <p><strong>11:30 AM</strong> - after opening</p>
+        <p><strong>1:00 PM</strong> - eat</p>
+        <p><strong>2:00 PM</strong> - before ending</p>
+        <p><strong>4:00 PM</strong> - ending</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: i-hate-css@gmail.com</p>
+        <p>Twitter: <a href="https://guthib.com" target="_blank" style="color:#00ffe7;">@Techtonic</a></p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Department of Computer Science
+    </footer>
+
+</body>
+</html>
