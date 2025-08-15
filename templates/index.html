@@ -30,7 +30,7 @@
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: right;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -67,6 +67,12 @@
         nav ul li a:hover {
             color: #00ffe7;
         }
+
+        @media (max-width: 767px) {
+    nav {
+        position: static; /* Removes sticky behavior */
+    }
+}
 
         /* College name section */
         .C_name {
