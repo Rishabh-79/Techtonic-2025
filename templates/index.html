@@ -102,9 +102,9 @@
             margin: 10px 0;
         }
 
-        .C_name img {
-            width: 80px;
-            height: 100px;
+        .logo img {
+            width: 30px;
+            height: 50px;
             max-width: 100%;
             height: auto;
         }
@@ -360,7 +360,7 @@
 
     <!-- Navigation Bar -->
     <nav>
-        <div class="logo">Techtonic</div>
+        <div class="logo"><img src="{{ url_for('static',filename='image.png') }}" alt=""></div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#schedule">Schedule</a></li>
@@ -372,7 +372,6 @@
     <!-- Hero Section -->
      <div class="C_name">
         <div>
-        <img src="{{ url_for('static',filename='image.png') }}" alt="College Logo" style="display:inline-block;">
         <h1 style="display:inline-block;">Madras Christian College(AUTONOMOUS)</h1>
         </div>
         <h2>Department of Computer Science(SFS)</h2>
@@ -436,9 +435,12 @@ advertise your products.</p>
             <div>
                 <label>Event:</label>
                 <select name="Event" id="Events">
-                    <option value="Presentation">Presentation</option>
-                    <option value="Coding">Coding</option>
-                    <option value="Capture The Flag">CTF</option>
+                    <option value="Paper Presentation (Idea Ignite)">Paper Presentation(Idea Ignite)</option>
+                    <option value="Web Design (Cyber canvas)">Web Design (Cyber canvas)</option>
+                    <option value="Debugging (Bug Busters)">Debugging (Bug Busters)</option>
+                    <option value="AdZap (Brand Blitz)">AdZap (Brand Blitz)</option>
+                    <option value="Quiz (Mind Mash)">Quiz (Mind Mash)</option>
+                    <option value="Digital Collage (Pixel Palette)">Digital Collage (Pixel Palette)</option>
                 </select>
             </div>
             <div>
