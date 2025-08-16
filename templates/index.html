@@ -196,6 +196,41 @@
             background-color: #00c4b3;
             color: #f0f0f0;
         }
+        /* Select dropdown styling for Event */
+        #Events {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            background-color: #1a1a1a;
+            color: #eee;
+            border: 1.5px solid #00ffe7;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            appearance: none;            /* Remove default arrows for most browsers */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            background-image:
+                linear-gradient(45deg, transparent 50%, #00ffe7 50%),
+                linear-gradient(135deg, #00ffe7 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+        }
+
+        #Events:hover,
+        #Events:focus {
+            border-color: #00fff0;
+            outline: none;
+            box-shadow: 0 0 5px #00ffe7;
+            background-image:
+                linear-gradient(45deg, transparent 50%, #00fff0 50%),
+                linear-gradient(135deg, #00fff0 50%, transparent 50%);
+        }
 
         /* Sections */
         section {
@@ -362,7 +397,7 @@ Epicenter of Innovation”, exclusively for
 undergraduate Computer Science students from Arts
 and Science colleges in and around Chennai. The
 event will be held on <strong>September 12, 2025</strong> at the
-Anderson Hall, Madras Christian College.
+Anderson Hall, Madras Christian College. <br> <br>
 <strong>“Techtonic”</strong> symbolizes the powerful and
 transformative influence of technology on the world,
 suggesting a seismic shift and significant
@@ -376,22 +411,35 @@ advertise your products.</p>
 
     <section id="Register">
         <h2>Register</h2>
+        <h4>IMPORTANT NOTE: YOU CAN ONLY REGISTER FOR 2 EVENTS. <br> ONLY THE FIRST 2 EVENTS YOU REGISTER TO WILL BE TAKEN INTO CONSIDERATION</h4>
         <form action="/" method="POST" id="Registration-form">
             <div>
-                <label>Name:</label>
-                <input type="text" name="Name" />
+                <label>Name1:</label>
+                <input type="text" name="Name1" />
+            </div>
+            <div>
+                <label>Age1:</label>
+                <input type="text" name="Age1" id="Age1"/>
+            </div>
+            <div>
+                <label>Name2:</label>
+                <input type="text" name="Name2" />
+            </div>
+            <div>
+                <label>Age2:</label>
+                <input type="text" name="Age2" id="Age2"/>
             </div>
             <div>
                 <label>College:</label>
-                <input type="text" name="Clg" />
+                <input type="text" name="Clg" id="Clg"/>
             </div>
             <div>
-                <label>Age:</label>
-                <input type="text" name="Age" id="Age"/>
-            </div>
-            <div>
-                <label>Event ID:</label>
-                <input type="text" name="Eid" id="Eid"/>
+                <label>Event:</label>
+                <select name="Event" id="Events">
+                    <option value="Presentation">Presentation</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Capture The Flag">CTF</option>
+                </select>
             </div>
             <div>
                 <input type="submit" >
