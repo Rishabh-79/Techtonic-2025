@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techtonic - Technology Event</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Techtonic</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#Register">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+     <div class="C_name">
+        <section id="Register">
+        <h2>Register</h2>
+        <form action="/registerall" method="POST" id="Registration-form">
+            <div>
+                <label>Name1:</label>
+                <input type="text" name="Name1" />
+            </div>
+            <div>
+                <label>Name2:</label>
+                <input type="text" name="Name2" />
+            </div>
+            <div>
+                <label>Email ID:</label>
+                <input type="text" name="mailid" />
+            </div>
+            <div>
+                <label>Department:</label>
+                <input type="text" name="Dept"/>
+            </div>
+            <div>
+                <label>College:</label>
+                <input type="text" name="Clg" id="Clg"/>
+            </div>
+            <div>
+                <label>Event:</label>
+                <select name="Event" id="Events">
+                    <option value="Paper Presentation (Idea Ignite)">Paper Presentation(Idea Ignite)</option>
+                    <option value="Web Design (Cyber canvas)">Web Design (Cyber canvas)</option>
+                    <option value="Debugging (Bug Busters)">Debugging (Bug Busters)</option>
+                    <option value="Quiz (Mind Mash)">Quiz (Mind Mash)</option>
+                    <option value="Digital Collage (Pixel Palette)">Digital Collage (Pixel Palette)</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" >
+            </div>
+        </form>
+    </section>
+     </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Department of Computer Science
+    </footer>
+
+</body>
+</html>

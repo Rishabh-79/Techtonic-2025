@@ -1,0 +1,386 @@
+body {
+            margin: 0;
+            font-family: 'Brush Script MT (cursive)', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            color: #ffffff;
+            background-image: url("background.jpg");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ensure all elements use border-box */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Navigation bar */
+        nav {
+            background-color: #111;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: right;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            flex-wrap: wrap;
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            color: #00ffe7;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 5px;
+        }
+
+        nav ul li a:hover {
+            color: #00ffe7;
+        }
+
+        @media (max-width: 767px) {
+    nav {
+        position: static; /* Removes sticky behavior */
+    }
+}
+
+        /* College name section */
+        .C_name {
+            text-align: center;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 15px;
+            width: 100%;
+        }
+
+        .C_name div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .C_name h1 {
+            font-size: 1.8em;
+            margin: 0;
+            text-align: center;
+        }
+
+        .C_name h2, .C_name h4 {
+            color: #00ffe7;
+            margin: 10px 0;
+        }
+
+        .logo img {
+            width: 30px;
+            height: 50px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Main hero section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #00ffe7;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: auto;
+            color: #ddd;
+        }
+        
+        /* Form container styling */
+        #Registration-form {
+            max-width: 400px;
+            width: 100%;
+            margin: 30px auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #00ffe7;
+        }
+
+        /* Label styling */
+        #Registration-form label {
+            display: block;
+            color: #00ffe7;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-family: 'Times New Roman';
+            font-size: 1.1em;
+        }
+
+        /* Input fields styling */
+        #Registration-form input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1.5px solid #00ffe7;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #eee;
+            font-size: 1em;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        /* Input focus effect */
+        #Registration-form input[type="text"]:focus {
+            border-color: #00fff0;
+            outline: none;
+            box-shadow: 0 0 5px #00ffe7;
+        }
+
+        /* Submit button styling */
+        #Registration-form input[type="submit"] {
+            background-color: #00ffe7;
+            border: none;
+            color: #111;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Brush Script MT', cursive;
+            width: 100%;
+        }
+
+        /* Submit button hover */
+        #Registration-form input[type="submit"]:hover {
+            background-color: #00c4b3;
+            color: #f0f0f0;
+        }
+        /* Select dropdown styling for Event */
+        #Events {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            background-color: #1a1a1a;
+            color: #eee;
+            border: 1.5px solid #00ffe7;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            appearance: none;            /* Remove default arrows for most browsers */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            background-image:
+                linear-gradient(45deg, transparent 50%, #00ffe7 50%),
+                linear-gradient(135deg, #00ffe7 50%, transparent 50%);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+        }
+
+        #Events:hover,
+        #Events:focus {
+            border-color: #00fff0;
+            outline: none;
+            box-shadow: 0 0 5px #00ffe7;
+            background-image:
+                linear-gradient(45deg, transparent 50%, #00fff0 50%),
+                linear-gradient(135deg, #00fff0 50%, transparent 50%);
+        }
+
+        /* Sections */
+        section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #00ffe7;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #111;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px 15px;
+            }
+            
+            nav ul {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .C_name {
+                font-size: 16px;
+                padding: 15px 10px;
+            }
+
+            .C_name h1 {
+                font-size: 1.4em;
+            }
+
+            .C_name img {
+                width: 60px;
+                height: 75px;
+            }
+
+            .hero {
+                padding: 40px 15px;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            section {
+                padding: 30px 15px;
+            }
+
+            #Registration-form {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            nav .logo {
+                font-size: 1.3em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 8px 0;
+            }
+
+            .C_name h1 {
+                font-size: 1.2em;
+            }
+
+            .C_name div {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 1.8em;
+            }
+
+            section {
+                padding: 20px 10px;
+            }
+
+            #Registration-form {
+                margin: 15px 5px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .C_name h1 {
+                font-size: 1.1em;
+            }
+
+            .hero h1 {
+                font-size: 1.6em;
+            }
+
+            nav .logo {
+                font-size: 1.2em;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: #00ffe7;
+            margin: 4px 0;
+            transition: 0.3s;
+            }
+
+            /* Hide nav items on mobile */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* hidden by default */
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                background-color: #111;
+                padding: 10px 0;
+            }
+
+            nav ul.show {
+                display: flex; /* show when toggled */
+            }
+
+            .menu-toggle {
+                display: flex; /* show hamburger */
+            }
+
+            nav {
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
