@@ -5,13 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Techtonic - Technology Event</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
+    <style>
+        #Register button {
+  background-color: #00ffe7;       /* Teal/cyan accent color */
+  color: #111;                    /* Dark text for contrast */
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin: 8px 10px;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  font-family:'Times New Roman', Times, serif ;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 10px #00ffe7aa; /* Soft glow */
+  display: inline-block;
+  width: auto;
+  min-width: 180px;
+  text-align: center;
+}
+
+#Register button:hover {
+  background-color: #00c4b3;  /* Darker teal on hover */
+  color: #f0f0f0;
+  box-shadow: 0 0 15px #00ffe7ff;
+}
+
+#Register {
+  text-align: center;
+  padding: 20px 10px;
+}
+    </style>
 
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <nav>
-        <div class="logo"><img src="{{ url_for('static',filename='image.png') }}" alt=""></div>
+        <div class="logo"><img src="" alt="Techtonic"></div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#schedule">Schedule</a></li>
@@ -23,17 +54,17 @@
     <!-- Hero Section -->
      <div class="C_name">
         <div>
+            <img src="{{ url_for('static',filename='image.png') }}" style="height: 70px; width: 50px;" alt="">
         <h1 style="display:inline-block;">Madras Christian College(AUTONOMOUS)</h1>
         </div>
-        <h2>Department of Computer Science(SFS)</h2>
-        <h4>Shift-II</h4>
+        <h2>Department of Computer Science(Shift-II)</h2>
      </div>
     <div class="hero">
         <img src="{{ url_for('static',filename='final-T2025.png') }}" alt="">
     </div>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" style="text-align: justify;">
         <h2>About Us</h2>
         <p>The Cybernauts student association of the
 Department of Computer Science is dedicated to

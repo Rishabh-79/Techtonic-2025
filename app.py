@@ -17,8 +17,8 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = '59rishabh@gmail.com'        # your email
-app.config['MAIL_PASSWORD'] = 'wrsd jnsk dfgl qmpd '         # your email password or app-specific password
+app.config['MAIL_USERNAME'] = '59rishabh@gmail.com'       
+app.config['MAIL_PASSWORD'] = 'wrsd jnsk dfgl qmpd '         
 app.config['MAIL_DEFAULT_SENDER'] = '59rishabh@gmail.com'
 
 mail=Mail(app)
@@ -65,14 +65,19 @@ def dba():
 
 @app.route('/download7798')
 def dwnld():
-    query=db.session.query(Todo).all()
+    query = db.session.query(Todo).all()
 
+    # Extract data
     data = [row.__dict__ for row in query]
     for row in data:
         row.pop('_sa_instance_state', None)  # Remove SQLAlchemy internal state
 
-    # Create DataFrame
-    df = pd.DataFrame(data)
+    # Define the column order as per model definition
+    columns_order = ['SNo', 'S1_name', 'S2_name', 'S3_name', 'S4_name', 'S5_name',
+                     'Mailid', 'Clg_name', 'Department', 'Event', 'CDate']
+
+    # Create DataFrame with specified column order
+    df = pd.DataFrame(data, columns=columns_order)
 
     # Create Excel file in memory
     output = io.BytesIO()
@@ -88,6 +93,7 @@ def dwnld():
         download_name="Final_data.xlsx",
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
     
 @app.route("/registerall",methods=['POST','GET'])
 def registerall():
@@ -101,7 +107,8 @@ def registerall():
         College=request.form['Clg']
         Sdept=request.form['Dept']
         SEvent=request.form['Event']
-        Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent)
+        tor=datetime.now(IST)
+        Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent,CDate=tor)
         db.session.add(Reg_new)
         db.session.commit()
         msg= Message(subject="Registration for Techtonic 2025",
@@ -127,6 +134,10 @@ def registerazp():
         Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent)
         db.session.add(Reg_new)
         db.session.commit()
+        msg= Message(subject="Registration for Techtonic 2025",
+        recipients=[mailval],  # list of recipient emails
+        body="You have been successfully registered for techtonic 2025")
+        mail.send(msg)
         return redirect('/registration')
     else:
         return render_template("RegformAzp.html")

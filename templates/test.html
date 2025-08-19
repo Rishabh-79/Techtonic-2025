@@ -3,25 +3,42 @@
     <head>
         <meta charset="UTF-8">
         <title>Todo List</title>
+        <style>
+            table, th, td {
+                border: 1px solid black; /* Teal/cyan colored border */
+                border-collapse: collapse; /* Combine borders between cells */
+                padding: 8px; /* Space inside cells */
+            }
+
+        </style>
     </head>
     <body>
-        <h1>Hello {{value}}</h1>
+        <h1>Data Entries</h1>
         <table>
             <tr>
                 <th>SNo</th>
-                <th>Name</th>
+                <th>Name 1</th>
+                <th>Name 2</th>
+                <th>Name 3</th>
+                <th>Name 4</th>
+                <th>Name 5</th>
                 <th>College</th>
-                <th>Age</th>
-                <th>Eid</th>
+                <th>Department</th>
+                <th>EMail</th>
+                <th>Event</th>
+                <th>Date Time</th>
             </tr>
             {% for val in lists %}
             <tr>
                 <td>{{val.SNo}}</td>
                 <td>{{val.S1_name}}</td>
-                <td>{{val.Age1}}</td>
                 <td>{{val.S2_name}}</td>
-                <td>{{val.Age2}}</td>
+                <td>{{val.S3_name}}</td>
+                <td>{{val.S4_name}}</td>
+                <td>{{val.S5_name}}</td>
                 <td>{{val.Clg_name}}</td>
+                <td>{{val.Department}}</td>
+                <td>{{val.Mailid}}</td>
                 <td>{{val.Event}}</td>
                 <td>{{val.Cdate}}</td>
             </tr>
