@@ -40,7 +40,6 @@ class Todo(db.Model):
 
 
 with app.app_context():
-    db.drop_all()
     db.create_all()
 
 
@@ -56,13 +55,13 @@ def dlt():
     else:
         return render_template("RegSuccess.html")
 
-
+# Route to view data
 @app.route('/admin/database')
 def dba():
     query=db.session.query(Todo).all()
     return render_template('test.html', lists=query)
 
-
+# Route to download data as an excel file
 @app.route('/download7798')
 def dwnld():
     query = db.session.query(Todo).all()
@@ -97,50 +96,63 @@ def dwnld():
     
 @app.route("/registerall",methods=['POST','GET'])
 def registerall():
-    if request.method=="POST":
-        Sn1=request.form['Name1']
-        Sn2=request.form['Name2']
-        Sn3=''
-        Sn4=''
-        Sn5=''
-        mailval=request.form['mailid']
-        College=request.form['Clg']
-        Sdept=request.form['Dept']
-        SEvent=request.form['Event']
-        tor=datetime.now(IST)
-        Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent,CDate=tor)
-        db.session.add(Reg_new)
-        db.session.commit()
-        msg= Message(subject="Registration for Techtonic 2025",
-        recipients=[mailval],  # list of recipient emails
-        body="You have been successfully registered for techtonic 2025")
-        mail.send(msg)
-        return redirect('/registration')
-    else:
-        return render_template("RegformOthers.html")
+    try:
+        if request.method=="POST":
+            Sn1=request.form.get('Name1')
+            Sn2=request.form.get('Name2')
+            Sn3=''
+            Sn4=''
+            Sn5=''
+            mailval=request.form.get('mailid','').strip()
+            College=request.form.get('Clg')
+            Sdept=request.form.get('Dept')
+            SEvent=request.form.get('Event')
+            tor=datetime.now(IST)
+            if not Sn1 or not mailval or not College or not Sdept:
+                raise Exception("Fill required values")
+            Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent,CDate=tor)
+            db.session.add(Reg_new)
+            db.session.commit()
+            msg= Message(subject="Registration for Techtonic 2025",
+            recipients=[mailval],  # list of recipient emails
+            body="You have been successfully registered for techtonic 2025")
+            mail.send(msg)
+            return redirect('/registration')
+        else:
+            return render_template("RegformOthers.html")
+    except:
+        print(f"Caught exception:")
+        return redirect("/regfail")
 
 @app.route("/registerazp",methods=['POST','GET'])
 def registerazp():
-    if request.method=="POST":
-        Sn1=request.form['Name1']
-        Sn2=request.form['Name2']
-        Sn3=request.form['Name3']
-        Sn4=request.form['Name4']
-        Sn5=request.form['Name5']
-        mailval=request.form['mailid']
-        College=request.form['Clg']
-        Sdept=request.form['Dept']
-        SEvent=request.form['Event']
-        Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent)
-        db.session.add(Reg_new)
-        db.session.commit()
-        msg= Message(subject="Registration for Techtonic 2025",
-        recipients=[mailval],  # list of recipient emails
-        body="You have been successfully registered for techtonic 2025")
-        mail.send(msg)
-        return redirect('/registration')
-    else:
-        return render_template("RegformAzp.html")
+    try:
+        if request.method=="POST":
+            Sn1=request.form.get('Name1')
+            Sn2=request.form.get('Name2')
+            Sn3=request.form['Name3']
+            Sn4=request.form['Name4']
+            Sn5=request.form['Name5']
+            mailval=request.form.get('mailid')
+            College=request.form.get('Clg')
+            Sdept=request.form.get('Dept')
+            SEvent=request.form['Event']
+            Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent)
+            db.session.add(Reg_new)
+            db.session.commit()
+            msg= Message(subject="Registration for Techtonic 2025",
+            recipients=[mailval],  # list of recipient emails
+            body="You have been successfully registered for techtonic 2025")
+            mail.send(msg)
+            return redirect('/registration')
+        else:
+            return render_template("RegformAzp.html")
+    except:
+        return render_template("Failure.html")
+
+@app.route("/regfail")
+def failedreg():
+    return render_template("Failure.html")
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(debug=False)
