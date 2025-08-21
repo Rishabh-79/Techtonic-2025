@@ -11,7 +11,7 @@ instance_dir = os.path.join(base_dir, 'instance')
 IST=timezone(timedelta(hours=5,minutes=30))
 
 app=Flask(__name__,instance_path=instance_dir)
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://registrationdb_1xph_user:4VVgNFIQc0TUQxlxJk0GM97TCkayQ7J3@dpg-d2fq81a4d50c73b53lf0-a/registrationdb_1xph'
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
