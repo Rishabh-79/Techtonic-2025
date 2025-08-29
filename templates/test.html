@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Todo List</title>
+        <title>Database</title>
         <style>
             table, th, td {
                 border: 1px solid black; /* Teal/cyan colored border */
@@ -16,7 +16,7 @@
         <h1>Data Entries</h1>
         <table>
             <tr>
-                <th>SNo</th>
+                <th>Actions</th>
                 <th>Name 1</th>
                 <th>Name 2</th>
                 <th>Name 3</th>
@@ -30,7 +30,7 @@
             </tr>
             {% for val in lists %}
             <tr>
-                <td>{{val.SNo}}</td>
+                <td><a href="/delete43127S/{{val.SNo}}"></a>delete</td>
                 <td>{{val.S1_name}}</td>
                 <td>{{val.S2_name}}</td>
                 <td>{{val.S3_name}}</td>
