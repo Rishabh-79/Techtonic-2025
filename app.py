@@ -115,24 +115,24 @@ def registerall():
             recipients=[mailval],  # list of recipient emails
             body='''Dear Team,
 
-            Thank you for registering for Techtonic 2025, the Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College.
+Thank you for registering for Techtonic 2025, the Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College.
 
-            We are pleased to confirm your registration for the event. Kindly note the following:
+We are pleased to confirm your registration for the event. Kindly note the following:
 
-            Date: Friday, 12th September 2025
+Date: Friday, 12th September 2025
 
-            Offline Registration: 9:00 AM at the venue
+Offline Registration: 9:00 AM at the venue
 
-            Inauguration Ceremony: 9:30 AM at Anderson Hall
+Inauguration Ceremony: 9:30 AM at Anderson Hall
 
-            Please ensure that all team members carry their College ID card and a Bonafide Certificate signed by the Head of the Department.
+Please ensure that all team members carry their College ID card and a Bonafide Certificate signed by the Head of the Department.
 
-            We look forward to your participation and wish you the very best.
+We look forward to your participation and wish you the very best.
 
-            Warm regards,
-            Organizing Team – Techtonic 2025
-            Department of Computer Science
-            Madras Christian College''')
+Warm regards,
+Organizing Team – Techtonic 2025
+Department of Computer Science
+Madras Christian College''')
             mail.send(msg)
             return redirect('/registration')
         else:
