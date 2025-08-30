@@ -36,7 +36,7 @@ class Todo(db.Model):
     Clg_name=db.Column(db.String(200),nullable=False)
     Department=db.Column(db.String(200),nullable=False)
     Event=db.Column(db.String(200),nullable=False)
-    CDate=db.Column(db.DateTime,default=datetime.now(IST))
+    CDate=db.Column(db.DateTime(timezone=True),default=datetime.now(IST))
 
 
 with app.app_context():
