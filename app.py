@@ -96,93 +96,10 @@ def dwnld():
     
 @app.route("/registerall",methods=['POST','GET'])
 def registerall():
-    try:
-        if request.method=="POST":
-            Sn1=request.form['Name1']
-            Sn2=request.form['Name2']
-            Sn3=''
-            Sn4=''
-            Sn5=''
-            mailval=request.form['mailid']
-            College=request.form['Clg']
-            Sdept=request.form['Dept']
-            SEvent=request.form['Event']
-            tor=datetime.now(IST)
-            Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent,CDate=tor)
-            db.session.add(Reg_new)
-            db.session.commit()
-            msg= Message(subject="Registration for Techtonic 2025",
-            recipients=[mailval],  # list of recipient emails
-            body='''Dear Team,
-
-Thank you for registering for Techtonic 2025, the Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College.
-
-We are pleased to confirm your registration for the event. Kindly note the following:
-
-Date: Friday, 12th September 2025
-
-Offline Registration: 9:00 AM at the venue
-
-Inauguration Ceremony: 9:30 AM at Anderson Hall
-
-Please ensure that all team members carry their College ID card and a Bonafide Certificate signed by the Head of the Department.
-
-We look forward to your participation and wish you the very best.
-
-Warm regards,
-Organizing Team – Techtonic 2025
-Department of Computer Science
-Madras Christian College''')
-            mail.send(msg)
-            return redirect('/registration')
-        else:
-            return render_template("RegformOthers.html")
-    except:
         return render_template("Failure.html")
 
 @app.route("/registerazp",methods=['POST','GET'])
 def registerazp():
-    try:
-        if request.method=="POST":
-            Sn1=request.form['Name1']
-            Sn2=request.form['Name2']
-            Sn3=request.form['Name3']
-            Sn4=request.form['Name4']
-            Sn5=request.form['Name5']
-            mailval=request.form['mailid']
-            College=request.form['Clg']
-            Sdept=request.form['Dept']
-            SEvent=request.form['Event']
-            Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent)
-            db.session.add(Reg_new)
-            db.session.commit()
-            msg= Message(subject="Registration for Techtonic 2025",
-            recipients=[mailval],  # list of recipient emails
-            body='''Dear Team,
-
-Thank you for registering for Techtonic 2025, the Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College.
-
-We are pleased to confirm your registration for the event. Kindly note the following:
-
-Date: Friday, 12th September 2025
-
-Offline Registration: 9:00 AM at the venue
-
-Inauguration Ceremony: 9:30 AM at Anderson Hall
-
-Please ensure that all team members carry their College ID card and a Bonafide Certificate signed by the Head of the Department.
-
-We look forward to your participation and wish you the very best.
-
-Warm regards,
-Organizing Team – Techtonic 2025
-Department of Computer Science
-Madras Christian College''')
-            mail.send(msg)
-            return redirect('/registration')
-        else:
-            return render_template("RegformAzp.html")
-    except:
         return render_template("Failure.html")
 
 @app.route('/delete43127S/<int:SNo>')
