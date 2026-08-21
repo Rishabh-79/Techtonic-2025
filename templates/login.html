@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techtonic - Technology Event</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Techtonic</div>
+        <ul>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="C_name">
+        <section id="Register">
+            <h2>Admin Login</h2>
+            <form action="/admin-login" method="POST" id="admin-login">
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="Uname" />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="Pwrd" />
+                </div>
+                {% if err %}
+                <div>
+                    <label>Invalid Credentials</label>
+                </div>
+                {% endif %}
+                <div>
+                    <input type="submit">
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Department of Computer Science
+    </footer>
+
+</body>
+
+</html>

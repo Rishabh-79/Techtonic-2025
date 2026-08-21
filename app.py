@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template,redirect,send_file,flash
+from flask import Flask,request,render_template,redirect,send_file,flash,session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime,timezone,timedelta
 import os
@@ -34,10 +34,12 @@ class Todo(db.Model):
     S5_name=db.Column(db.String(200),nullable=True)
     Mailid=db.Column(db.String(200),nullable=False)
     Clg_name=db.Column(db.String(200),nullable=False)
-    phno=db.Column(db.String(200),nullable=False)
     Department=db.Column(db.String(200),nullable=False)
+    phno=db.Column(db.String(200),nullable=False)
     Event=db.Column(db.String(200),nullable=False)
     CDate=db.Column(db.DateTime(timezone=True),default=datetime.now(IST))
+
+app.secret_key="sixxxxxxseveeeeeeen"
 
 with app.app_context():
     db.create_all()
@@ -45,6 +47,20 @@ with app.app_context():
 @app.route('/',methods=['POST','GET'])
 def index():
     return render_template('index.html')
+
+@app.route("/admin-login", methods=["POST","GET"])
+def admin():
+    if request.method=="POST":
+        uname=request.form.get("Uname", "")
+        pwrd=request.form.get("Pwrd", "")
+
+        if uname.lower()=="master" and pwrd=="TechtonicIsGood":
+            session["login"]="Admin"
+            return redirect("/admin-dashboard")
+        else:
+            return render_template("login.html", err=True)
+    return render_template("login.html", err=False)
+
     
 @app.route('/registration',methods=['POST','GET'])
 def dlt():
@@ -54,10 +70,13 @@ def dlt():
         return render_template("RegSuccess.html")
 
 # Route to view data
-@app.route('/admin/database')
-def dba():
-    query=db.session.query(Todo).all()
-    return render_template('test.html', lists=query)
+@app.route('/admin-dashboard')
+def dashboard():
+    if session.get("login") == "Admin":
+        query = db.session.query(Todo).all()
+        return render_template("test.html", lists=query)
+    return redirect("/admin-login")
+
 
 # Route to download data as an excel file
 @app.route('/download7798')
@@ -71,7 +90,7 @@ def dwnld():
 
     # Define the column order as per model definition
     columns_order = ['SNo', 'S1_name', 'S2_name', 'S3_name', 'S4_name', 'S5_name',
-                     'Mailid', 'Clg_name', 'Department', 'Event', 'CDate']
+                     'Mailid', 'Clg_name', 'Department',"Phone no", 'Event', 'CDate']
 
     # Create DataFrame with specified column order
     df = pd.DataFrame(data, columns=columns_order)
@@ -149,7 +168,7 @@ def delete(SNo):
     try:
         db.session.delete(delete_obj)
         db.session.commit()
-        return redirect('/admin/database')
+        return redirect('/admin-dashboard')
     except:
         return "There was a problem"
 
