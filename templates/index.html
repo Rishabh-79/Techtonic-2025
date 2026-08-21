@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +8,49 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
     <style>
         #Register button {
-  background-color: #00ffe7;       /* Teal/cyan accent color */
-  color: #111;                    /* Dark text for contrast */
-  border: none;
-  border-radius: 6px;
-  padding: 12px 20px;
-  margin: 8px 10px;
-  font-weight: bold;
-  font-size: 1.1em;
-  cursor: pointer;
-  font-family:'Times New Roman', Times, serif ;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 0 10px #00ffe7aa; /* Soft glow */
-  display: inline-block;
-  width: auto;
-  min-width: 180px;
-  text-align: center;
-}
+            background-color: var(--primary-color);
+            /* Primary accent color */
+            color: #111;
+            /* Dark text for contrast */
+            border: none;
+            border-radius: 6px;
+            padding: 12px 20px;
+            margin: 8px 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-color);
+            /* Soft glow */
+            display: inline-block;
+            width: auto;
+            min-width: 180px;
+            text-align: center;
+        }
 
-#Register button:hover {
-  background-color: #00c4b3;  /* Darker teal on hover */
-  color: #f0f0f0;
-  box-shadow: 0 0 15px #00ffe7ff;
-}
+        #Register button:hover {
+            background-color: #00c4b3;
+            /* Darker teal on hover */
+            color: #f0f0f0;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
 
-#Register {
-  text-align: left;
-  padding: 20px 10px;
-}
+        #Register {
+            text-align: left;
+            padding: 20px 10px;
+        }
     </style>
 
 </head>
+
 <body>
 
     <!-- Navigation Bar -->
     <nav>
-        <div class="logo"><img src="" alt="Techtonic"></div>
+        <div class="logo">
+            <p>Techtonic 2026</p>
+        </div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#schedule">Schedule</a></li>
@@ -52,13 +60,13 @@
     </nav>
 
     <!-- Hero Section -->
-     <div class="C_name">
+    <div class="C_name">
         <div>
             <img src="{{ url_for('static',filename='image.png') }}" style="height: 70px; width: 50px;" alt="">
-        <h1 style="display:inline-block;">Madras Christian College(AUTONOMOUS)</h1>
+            <h1 style="display:inline-block;">Madras Christian College(AUTONOMOUS)</h1>
         </div>
         <h2>Department of Computer Science(Shift-II)</h2>
-     </div>
+    </div>
     <div class="hero">
         <img src="{{ url_for('static',filename='final-T2025.png') }}" alt="">
     </div>
@@ -67,27 +75,28 @@
     <section id="about" style="text-align: justify;">
         <h2>About Us</h2>
         <p>The Cybernauts student association of the
-Department of Computer Science is dedicated to
-motivating students to explore the world of
-computer science, develop innovative tools, and
-cultivate a genuine passion for the field. To
-complement and enhance the academic curriculum,
-the association has planned an Inter-Collegiate
-Technical Competition titled “Techtonic – The
-Epicenter of Innovation”, exclusively for
-undergraduate Computer Science students from Arts
-and Science colleges in and around Chennai. The
-event will be held on <strong>September 12, 2025</strong> at the
-Anderson Hall, Madras Christian College. <br> <br>
-<strong>“Techtonic”</strong> symbolizes the powerful and
-transformative influence of technology on the world,
-suggesting a seismic shift and significant
-advancements in the tech industry. The event aims to
-explore and showcase groundbreaking innovations
-that are reshaping the technological landscape.
-Featuring six diverse technical events, it provides an
-excellent platform for you to exhibit, promote, and
-advertise your products.</p>
+            Department of Computer Science is dedicated to
+            motivating students to explore the world of
+            computer science, develop innovative tools, and
+            cultivate a genuine passion for the field. To
+            complement and enhance the academic curriculum,
+            the association has planned an Inter-Collegiate
+            Technical Competition titled “Techtonic – The
+            Epicenter of Innovation”, exclusively for
+            undergraduate Computer Science students from Arts
+            and Science colleges in and around Chennai. The
+            event will be held on <strong>September 12, 2025</strong> at the
+            Anderson Hall, Madras Christian College. <br> <br>
+            <strong>“Techtonic”</strong> symbolizes the powerful and
+            transformative influence of technology on the world,
+            suggesting a seismic shift and significant
+            advancements in the tech industry. The event aims to
+            explore and showcase groundbreaking innovations
+            that are reshaping the technological landscape.
+            Featuring six diverse technical events, it provides an
+            excellent platform for you to exhibit, promote, and
+            advertise your products.
+        </p>
     </section>
 
     <section id="Register">
@@ -102,11 +111,10 @@ advertise your products.</p>
 
     <section id="DwnldRB">
         <h2>Download Rule Book</h2>
-       <button
-    type="button"
-    onclick="window.open('https://drive.google.com/file/d/1S0QrmhqD4lBH4vsLEpU0mIhnrwCXJcUt/view?usp=drivesdk','_blank')"
-    style="
-        background-color: #00ffe7;
+        <button type="button"
+            onclick="window.open('https://drive.google.com/file/d/1S0QrmhqD4lBH4vsLEpU0mIhnrwCXJcUt/view?usp=drivesdk','_blank')"
+            style="
+        background-color: var(--primary-color);
         color: #111;
         font-family:'Times New Roman', Times, serif;
         font-size: 1.2em;
@@ -114,23 +122,20 @@ advertise your products.</p>
         padding: 12px 32px;
         border: none;
         border-radius: 6px;
-        box-shadow: 0 0 12px #00ffe7;
+        box-shadow: 0 0 12px var(--primary-color);
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
         margin: 12px 0;
         letter-spacing: 1px;
-        "
-        onmouseover="this.style.backgroundColor='#00c4b3'; this.style.color='#f0f0f0';"
-        onmouseout="this.style.backgroundColor='#00ffe7'; this.style.color='#111';"
->
-    Download Rule Book
+        " onmouseover="this.style.backgroundColor='#00c4b3'; this.style.color='#f0f0f0';"
+            onmouseout="this.style.backgroundColor='var(--primary-color)'; this.style.color='#111';">
+            Download Rule Book
         </button>
 
-        <button
-        type="button"
-        onclick="window.open('https://docs.google.com/document/d/1VIN_0NnTm_S_TrBveED-2oumfAkYLaXHxbcB5CmcgGs/edit?usp=sharing','_blank')"
-        style="
-            background-color: #00ffe7;
+        <button type="button"
+            onclick="window.open('https://docs.google.com/document/d/1VIN_0NnTm_S_TrBveED-2oumfAkYLaXHxbcB5CmcgGs/edit?usp=sharing','_blank')"
+            style="
+            background-color: var(--primary-color);
             color: #111;
             font-family:'Times New Roman', Times, serif;
             font-size: 1.2em;
@@ -138,18 +143,16 @@ advertise your products.</p>
             padding: 12px 32px;
             border: none;
             border-radius: 6px;
-            box-shadow: 0 0 12px #00ffe7;
+            box-shadow: 0 0 12px var(--primary-color);
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
             margin: 12px 0;
             letter-spacing: 1px;
-            "
-            onmouseover="this.style.backgroundColor='#00c4b3'; this.style.color='#f0f0f0';"
-            onmouseout="this.style.backgroundColor='#00ffe7'; this.style.color='#111';"
-    >
-        View Digital Collage Rules
-            </button>
-    
+            " onmouseover="this.style.backgroundColor='#00c4b3'; this.style.color='#f0f0f0';"
+            onmouseout="this.style.backgroundColor='var(--primary-color)'; this.style.color='#111';">
+            View Digital Collage Rules
+        </button>
+
     </section>
 
     <!-- Schedule Section -->
@@ -172,8 +175,9 @@ advertise your products.</p>
 
     <!-- Footer -->
     <footer>
-        &copy; 2025 Department of Computer Science
+        &copy; 2026 Department of Computer Science
     </footer>
 
 </body>
+
 </html>

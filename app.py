@@ -11,7 +11,7 @@ instance_dir = os.path.join(base_dir, 'instance')
 IST=timezone(timedelta(hours=5,minutes=30))
 
 app=Flask(__name__,instance_path=instance_dir)
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://registrationdb_1xph_user:4VVgNFIQc0TUQxlxJk0GM97TCkayQ7J3@dpg-d2fq81a4d50c73b53lf0-a/registrationdb_1xph'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///test.db'
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -34,20 +34,18 @@ class Todo(db.Model):
     S5_name=db.Column(db.String(200),nullable=True)
     Mailid=db.Column(db.String(200),nullable=False)
     Clg_name=db.Column(db.String(200),nullable=False)
+    phno=db.Column(db.String(200),nullable=False)
     Department=db.Column(db.String(200),nullable=False)
     Event=db.Column(db.String(200),nullable=False)
     CDate=db.Column(db.DateTime(timezone=True),default=datetime.now(IST))
 
-
 with app.app_context():
     db.create_all()
-
 
 @app.route('/',methods=['POST','GET'])
 def index():
     return render_template('index.html')
     
-
 @app.route('/registration',methods=['POST','GET'])
 def dlt():
     if request.method=="POST":
@@ -96,6 +94,49 @@ def dwnld():
     
 @app.route("/registerall",methods=['POST','GET'])
 def registerall():
+    try:
+        if request.method=="POST":
+            Sn1=request.form['Name1']
+            Sn2=request.form['Name2']
+            Sn3=''
+            Sn4=''
+            Sn5=''
+            mailval=request.form['mailid']
+            College=request.form['Clg']
+            Sdept=request.form['Dept']
+            ph=request.form['phone']
+            SEvent=request.form['Event']
+            tor=datetime.now(IST)
+            Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent,CDate=tor,phno=ph)
+            db.session.add(Reg_new)
+            db.session.commit()
+            msg= Message(subject="Registration for Techtonic 2026",
+            recipients=[mailval],  # list of recipient emails
+            body='''Dear Team,
+
+Thank you for registering for Techtonic 2026, the Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College.
+
+We are pleased to confirm your registration for the event. Kindly note the following:
+
+Date: <IDK>
+
+Offline Registration: 9:00 AM at the venue
+
+Inauguration Ceremony: 9:30 AM at Anderson Hall
+
+Please ensure that all team members carry their College ID card and a Bonafide Certificate signed by the Head of the Department.
+
+We look forward to your participation and wish you the very best.
+
+Warm regards,
+Organizing Team – Techtonic 2026
+Department of Computer Science
+Madras Christian College''')
+            mail.send(msg)
+            return redirect('/registration')
+        else:
+            return render_template("RegformOthers.html")
+    except:
         return render_template("Failure.html")
 
 @app.route("/registerazp",methods=['POST','GET'])
