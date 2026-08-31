@@ -13,7 +13,12 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 instance_dir = os.path.join(base_dir, 'instance')
 IST=timezone(timedelta(hours=5,minutes=30))
 
-app=Flask(__name__,instance_path=instance_dir)
+app = Flask(
+    __name__,
+    instance_path=instance_dir,
+    template_folder=os.path.join(base_dir, 'templates'),
+    static_folder=os.path.join(base_dir, 'static')
+)
 # Require DATABASE_URL — fail loudly if it's not set
 _db_url = os.environ.get('DATABASE_URL')
 
