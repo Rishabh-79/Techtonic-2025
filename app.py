@@ -5,6 +5,9 @@ import os
 from flask_mail import Mail,Message
 import pandas as pd
 import io
+from dotenv import load_dotenv
+load_dotenv()
+
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 instance_dir = os.path.join(base_dir, 'instance')
@@ -13,6 +16,7 @@ IST=timezone(timedelta(hours=5,minutes=30))
 app=Flask(__name__,instance_path=instance_dir)
 # Require DATABASE_URL — fail loudly if it's not set
 _db_url = os.environ.get('DATABASE_URL')
+
 if not _db_url:
     raise RuntimeError("DATABASE_URL environment variable is not set. Refusing to start without a database.")
 # SQLAlchemy requires 'postgresql://' not 'postgres://' (Render uses the old prefix)
