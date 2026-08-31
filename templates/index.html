@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Techtonic 2026 – The Epicenter of Innovation | MCC</title>
-    <meta name="description" content="Techtonic 2026 – The Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College. 25th September 2026.">
+    <meta name="description"
+        content="Techtonic 2026 – The Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College. 25th September 2026.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- AOS – Animate On Scroll -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
@@ -115,43 +117,37 @@
         <h2>Register</h2>
         <div class="event-cards-grid">
 
-            <button class="event-card-btn" id="btn-catalyst"
-                onclick="window.location.href='/registerall'">
+            <button class="event-card-btn" id="btn-catalyst" onclick="window.location.href='/registerall'">
                 <span class="event-icon">📄</span>
                 <span class="event-title">Catalyst</span>
                 Paper Presentation
             </button>
 
-            <button class="event-card-btn" id="btn-breakpoint"
-                onclick="window.location.href='/registerall'">
+            <button class="event-card-btn" id="btn-breakpoint" onclick="window.location.href='/registerall'">
                 <span class="event-icon">🐛</span>
                 <span class="event-title">Breakpoint</span>
                 Debugging
             </button>
 
-            <button class="event-card-btn" id="btn-brandstorm"
-                onclick="window.location.href='/registerazp'">
+            <button class="event-card-btn" id="btn-brandstorm" onclick="window.location.href='/registerazp'">
                 <span class="event-icon">📢</span>
                 <span class="event-title">BrandStorm</span>
                 Ad Zap
             </button>
 
-            <button class="event-card-btn" id="btn-synapse"
-                onclick="window.location.href='/registerall'">
+            <button class="event-card-btn" id="btn-synapse" onclick="window.location.href='/registerall'">
                 <span class="event-icon">🧠</span>
                 <span class="event-title">Synapse</span>
                 Quiz
             </button>
 
-            <button class="event-card-btn" id="btn-webcraft"
-                onclick="window.location.href='/registerall'">
+            <button class="event-card-btn" id="btn-webcraft" onclick="window.location.href='/registerall'">
                 <span class="event-icon">🌐</span>
                 <span class="event-title">WebCraft</span>
                 Web Designing
             </button>
 
-            <button class="event-card-btn" id="btn-pixelora"
-                onclick="window.location.href='/registerall'">
+            <button class="event-card-btn" id="btn-pixelora" onclick="window.location.href='/registerall'">
                 <span class="event-icon">🎨</span>
                 <span class="event-title">Pixelora</span>
                 Digital Collage
@@ -162,14 +158,10 @@
 
     <!-- ── Download Rulebook ── -->
     <section id="DwnldRB" data-aos="fade-up" data-aos-duration="700">
-        <h2>Download Rule Book</h2>
+        <h2>Rule Book</h2>
         <button class="download-btn" id="btn-rulebook"
-            onclick="window.open('https://drive.google.com/file/d/1S0QrmhqD4lBH4vsLEpU0mIhnrwCXJcUt/view?usp=drivesdk','_blank')">
-            ⬇ Download Rule Book
-        </button>
-        <button class="download-btn" id="btn-collage-rules"
             onclick="window.open('https://drive.google.com/file/d/1Oz1w9R3toQghLSelaXULkuCfNWQVvQpe/view?usp=sharing','_blank')">
-            🖼 View Pixelora Rules
+            ⬇ View Rule Book
         </button>
     </section>
 
@@ -178,15 +170,15 @@
         <h2>Event Schedule <span style="font-size:0.6em;color:#666;font-weight:400;">(Not Finalised)</span></h2>
         <div class="schedule-item">
             <span class="schedule-time">10:30 AM</span>
-            <span class="schedule-event">Catalyst – Paper Presentation</span>
+            <span class="schedule-event">Paper Presentation(Catalyst) - Anderson Hall</span>
         </div>
         <div class="schedule-item">
             <span class="schedule-time">10:30 AM</span>
-            <span class="schedule-event">Breakpoint – Debugging</span>
+            <span class="schedule-event">Debugging(Breakpoint) - MMIP CS Lab</span>
         </div>
         <div class="schedule-item">
             <span class="schedule-time">12:00 PM</span>
-            <span class="schedule-event">BrandStorm – Ad Zap</span>
+            <span class="schedule-event">Ad Zap(BrandStorm) - Anderson Hall</span>
         </div>
         <div class="schedule-item">
             <span class="schedule-time">1:00 PM</span>
@@ -194,15 +186,15 @@
         </div>
         <div class="schedule-item">
             <span class="schedule-time">2:00 PM</span>
-            <span class="schedule-event">Synapse – Quiz</span>
+            <span class="schedule-event">Quiz(Synapse) - Anderson Hall</span>
         </div>
         <div class="schedule-item">
             <span class="schedule-time">2:00 PM</span>
-            <span class="schedule-event">WebCraft – Web Designing</span>
+            <span class="schedule-event">Web Designing(WebCraft) - MMIP CS Lab</span>
         </div>
         <div class="schedule-item">
             <span class="schedule-time">Online</span>
-            <span class="schedule-event">Pixelora – Digital Collage</span>
+            <span class="schedule-event">Digital Collage(Pixelora)</span>
         </div>
     </section>
 
@@ -231,7 +223,7 @@
 
         // ── Hamburger Menu Toggle ─────────────────────────────────
         const menuToggle = document.getElementById('menu-toggle');
-        const navLinks   = document.getElementById('nav-links');
+        const navLinks = document.getElementById('nav-links');
 
         function toggleMenu() {
             navLinks.classList.toggle('show');
@@ -254,7 +246,7 @@
         function pad(n) { return String(n).padStart(2, '0'); }
 
         function updateCountdown() {
-            const now  = new Date();
+            const now = new Date();
             const diff = EVENT_DATE - now;
 
             if (diff <= 0) {
@@ -263,13 +255,13 @@
                 return;
             }
 
-            const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            document.getElementById('cd-days').textContent    = pad(days);
-            document.getElementById('cd-hours').textContent   = pad(hours);
+            document.getElementById('cd-days').textContent = pad(days);
+            document.getElementById('cd-hours').textContent = pad(hours);
             document.getElementById('cd-minutes').textContent = pad(minutes);
             document.getElementById('cd-seconds').textContent = pad(seconds);
         }
@@ -280,15 +272,15 @@
         // ── Particle / Circuit Canvas ─────────────────────────────
         (function () {
             const canvas = document.getElementById('particle-canvas');
-            const ctx    = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d');
 
             let W, H, particles, animId;
             const NUM_PARTICLES = 55;
-            const MAX_DIST      = 140;
-            const COLOR         = '0, 255, 231'; // --primary-color RGB
+            const MAX_DIST = 140;
+            const COLOR = '0, 255, 231'; // --primary-color RGB
 
             function resize() {
-                W = canvas.width  = window.innerWidth;
+                W = canvas.width = window.innerWidth;
                 H = canvas.height = window.innerHeight;
             }
 
@@ -298,11 +290,11 @@
                 particles = [];
                 for (let i = 0; i < NUM_PARTICLES; i++) {
                     particles.push({
-                        x:  Math.random() * W,
-                        y:  Math.random() * H,
+                        x: Math.random() * W,
+                        y: Math.random() * H,
                         vx: randBetween(-0.28, 0.28),
                         vy: randBetween(-0.28, 0.28),
-                        r:  randBetween(1.2, 2.5)
+                        r: randBetween(1.2, 2.5)
                     });
                 }
             }
@@ -321,14 +313,14 @@
                 // Draw connections
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
-                        const dx   = particles[i].x - particles[j].x;
-                        const dy   = particles[i].y - particles[j].y;
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         if (dist < MAX_DIST) {
                             const alpha = (1 - dist / MAX_DIST) * 0.22;
                             ctx.beginPath();
                             ctx.strokeStyle = `rgba(${COLOR}, ${alpha})`;
-                            ctx.lineWidth   = 0.8;
+                            ctx.lineWidth = 0.8;
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
                             ctx.stroke();
