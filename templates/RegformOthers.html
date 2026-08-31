@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techtonic - Technology Event</title>
+    <title>Register – Techtonic 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
 </head>
 
@@ -12,56 +15,58 @@
 
     <!-- Navigation Bar -->
     <nav>
-        <div class="logo">Techtonic</div>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#schedule">Schedule</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#Register">Register</a></li>
+        <div class="logo">Techtonic 2026</div>
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span><span></span><span></span>
+        </div>
+        <ul id="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#schedule">Schedule</a></li>
+            <li><a href="/#contact">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <div class="C_name">
         <section id="Register">
             <h2>Register</h2>
             <form action="/registerall" method="POST" id="Registration-form">
                 <div>
-                    <label>Name1: (Required)</label>
-                    <input type="text" name="Name1" />
+                    <label>Name 1: <span style="color:#aaa;font-weight:400;">(Required)</span></label>
+                    <input type="text" name="Name1" required />
                 </div>
                 <div>
-                    <label>Name2: (Optional)</label>
+                    <label>Name 2: <span style="color:#aaa;font-weight:400;">(Optional)</span></label>
                     <input type="text" name="Name2" />
                 </div>
                 <div>
-                    <label>Email ID: (Required)</label>
-                    <input type="text" name="mailid" />
+                    <label>Email ID: <span style="color:#aaa;font-weight:400;">(Required)</span></label>
+                    <input type="email" name="mailid" required />
                 </div>
                 <div>
-                    <label>Whatsapp Number: (Required)</label>
-                    <input type="text" name="phone" />
+                    <label>WhatsApp Number: <span style="color:#aaa;font-weight:400;">(Required)</span></label>
+                    <input type="tel" name="phone" required />
                 </div>
                 <div>
-                    <label>Department: (Required)</label>
-                    <input type="text" name="Dept" />
+                    <label>Department: <span style="color:#aaa;font-weight:400;">(Required)</span></label>
+                    <input type="text" name="Dept" required />
                 </div>
                 <div>
-                    <label>College: (Required)</label>
-                    <input type="text" name="Clg" id="Clg" />
+                    <label>College: <span style="color:#aaa;font-weight:400;">(Required)</span></label>
+                    <input type="text" name="Clg" id="Clg" required />
                 </div>
                 <div>
                     <label>Event:</label>
                     <select name="Event" id="Events">
-                        <option value="Paper Presentation (Catalyst)">Paper Presentation(Idea Ignite)</option>
-                        <option value="Web Design (WebCraft)">Web Design (Cyber canvas)</option>
-                        <option value="Debugging (Breakpoint)">Debugging (Bug Busters)</option>
-                        <option value="Quiz (Synapse)">Quiz (Mind Mash)</option>
-                        <option value="Digital Collage (Pixelora)">Digital Collage (Pixel Palette)</option>
+                        <option value="Catalyst – Paper Presentation">Catalyst – Paper Presentation</option>
+                        <option value="Breakpoint – Debugging">Breakpoint – Debugging</option>
+                        <option value="Synapse – Quiz">Synapse – Quiz</option>
+                        <option value="WebCraft – Web Designing">WebCraft – Web Designing</option>
+                        <option value="Pixelora – Digital Collage">Pixelora – Digital Collage</option>
                     </select>
                 </div>
-                <div>
-                    <input type="submit">
+                <div style="margin-top:8px;">
+                    <input type="submit" value="Register Now">
                 </div>
             </form>
         </section>
@@ -69,8 +74,14 @@
 
     <!-- Footer -->
     <footer>
-        &copy; 2025 Department of Computer Science
+        &copy; 2026 Department of Computer Science – Madras Christian College
     </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks   = document.getElementById('nav-links');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+    </script>
 
 </body>
 

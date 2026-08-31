@@ -11,7 +11,14 @@ instance_dir = os.path.join(base_dir, 'instance')
 IST=timezone(timedelta(hours=5,minutes=30))
 
 app=Flask(__name__,instance_path=instance_dir)
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///test.db'
+# Require DATABASE_URL — fail loudly if it's not set
+_db_url = os.environ.get('DATABASE_URL')
+if not _db_url:
+    raise RuntimeError("DATABASE_URL environment variable is not set. Refusing to start without a database.")
+# SQLAlchemy requires 'postgresql://' not 'postgres://' (Render uses the old prefix)
+if _db_url.startswith('postgres://'):
+    _db_url = _db_url.replace('postgres://', 'postgresql://', 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = _db_url
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -128,7 +135,7 @@ def registerall():
             tor=datetime.now(IST)
             Reg_new=Todo(S1_name=Sn1,S2_name=Sn2,S3_name=Sn3,S4_name=Sn4,S5_name=Sn5,Mailid=mailval,Department=Sdept,Clg_name=College,Event=SEvent,CDate=tor,phno=ph)
             db.session.add(Reg_new)
-            db.session.commit()
+            
             msg= Message(subject="Registration for Techtonic 2026",
             recipients=[mailval],  # list of recipient emails
             body='''Dear Team,
@@ -152,10 +159,12 @@ Organizing Team – Techtonic 2026
 Department of Computer Science
 Madras Christian College''')
             mail.send(msg)
+            db.session.commit()
             return redirect('/registration')
         else:
             return render_template("RegformOthers.html")
-    except:
+    except Exception as e:
+        print(e)
         return render_template("Failure.html")
 
 @app.route("/registerazp",methods=['POST','GET'])

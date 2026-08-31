@@ -4,178 +4,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techtonic - Technology Event</title>
+    <title>Techtonic 2026 – The Epicenter of Innovation | MCC</title>
+    <meta name="description" content="Techtonic 2026 – The Inter-Collegiate Technical Fest of the Department of Computer Science, Madras Christian College. 25th September 2026.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS – Animate On Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
-    <style>
-        #Register button {
-            background-color: var(--primary-color);
-            /* Primary accent color */
-            color: #111;
-            /* Dark text for contrast */
-            border: none;
-            border-radius: 6px;
-            padding: 12px 20px;
-            margin: 8px 10px;
-            font-weight: bold;
-            font-size: 1.1em;
-            cursor: pointer;
-            font-family: 'Times New Roman', Times, serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            box-shadow: 0 0 10px var(--primary-color);
-            /* Soft glow */
-            display: inline-block;
-            width: auto;
-            min-width: 180px;
-            text-align: center;
-        }
-
-        #Register button:hover {
-            background-color: #00c4b3;
-            /* Darker teal on hover */
-            color: #f0f0f0;
-            box-shadow: 0 0 15px var(--primary-color);
-        }
-
-        #Register {
-            text-align: left;
-            padding: 20px 10px;
-        }
-    </style>
-
 </head>
 
 <body>
 
-    <!-- Navigation Bar -->
-    <nav>
+    <!-- Particle Canvas (tech circuit background) -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- ── Navigation Bar ── -->
+    <nav id="main-nav">
         <div class="logo">
             <p>Techtonic 2026</p>
         </div>
-        <ul>
+        <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="nav-links">
             <li><a href="#about">About</a></li>
+            <li><a href="#countdown-section">Countdown</a></li>
             <li><a href="#schedule">Schedule</a></li>
-            <li><a href="#contact">Contact</a></li>
             <li><a href="#Register">Register</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><a href="/admin-login">Admin</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ── College Name Banner ── -->
     <div class="C_name">
         <div>
-            <img src="{{ url_for('static',filename='image.png') }}" style="height: 70px; width: 50px;" alt="">
-            <h1 style="display:inline-block;">Madras Christian College(AUTONOMOUS)</h1>
+            <img src="{{ url_for('static', filename='image.png') }}" style="height:60px;width:auto;" alt="MCC Logo">
+            <h1>Madras Christian College (Autonomous)</h1>
         </div>
-        <h2>Department of Computer Science(Shift-II)</h2>
-    </div>
-    <div class="hero">
-        <img src="{{ url_for('static',filename='T2026D.png') }}" alt="">
+        <h2>Department of Computer Science (Shift-II)</h2>
     </div>
 
-    <!-- About Section -->
-    <section id="about" style="text-align: justify;">
+    <!-- ── Hero Section ── -->
+    <div class="hero">
+        <img src="{{ url_for('static', filename='T2026D.png') }}" alt="Techtonic 2026 Logo">
+    </div>
+
+    <!-- ── Countdown Timer ── -->
+    <section id="countdown-section">
+        <h2>Event Countdown</h2>
+        <p class="countdown-date">📅 25th September 2026 &nbsp;|&nbsp; Anderson Hall, Madras Christian College</p>
+        <div class="countdown-grid" id="countdown-grid">
+            <div class="countdown-box" data-aos="zoom-in" data-aos-delay="0">
+                <span class="count-num" id="cd-days">00</span>
+                <span class="count-label">Days</span>
+            </div>
+            <div class="countdown-box" data-aos="zoom-in" data-aos-delay="100">
+                <span class="count-num" id="cd-hours">00</span>
+                <span class="count-label">Hours</span>
+            </div>
+            <div class="countdown-box" data-aos="zoom-in" data-aos-delay="200">
+                <span class="count-num" id="cd-minutes">00</span>
+                <span class="count-label">Minutes</span>
+            </div>
+            <div class="countdown-box" data-aos="zoom-in" data-aos-delay="300">
+                <span class="count-num" id="cd-seconds">00</span>
+                <span class="count-label">Seconds</span>
+            </div>
+        </div>
+        <p id="countdown-ended">🎉 Techtonic 2026 is here! Welcome!</p>
+    </section>
+
+    <!-- ── About Section ── -->
+    <section id="about" data-aos="fade-up" data-aos-duration="700">
         <h2>About Us</h2>
         <p>
             The <strong>Cybernauts Student Association</strong> of the <strong>Department of Computer Science</strong>
             is committed to inspiring students to delve deeper into the dynamic world of computer science, foster
             innovation, develop impactful technological solutions, and cultivate a genuine passion for the field. As an
             initiative to complement and enrich the academic curriculum, the association is organizing an
-            <strong>Inter-Collegiate Technical Competition</strong> titled <strong>“Techtonic – The Epicenter of
-                Innovation”</strong>, exclusively for undergraduate Computer Science students from Arts and Science
-            colleges in and around Chennai. <br><br>The event is scheduled to be held on <strong>25th September
-                2026</strong> at
-            <strong>Anderson Hall, Madras Christian College</strong>. <br><br>The term <strong>“Techtonic”</strong>
-            embodies
-            the
-            profound and transformative influence of technology on the world, evoking the idea of a seismic shift that
-            drives significant advancements across the technological landscape. The event seeks to explore, celebrate,
-            and showcase groundbreaking innovations that are redefining the future of technology. <br><br>Featuring
-            <strong>six
-                diverse technical events</strong>, Techtonic provides an engaging and competitive platform for students
-            to demonstrate their technical expertise, creativity, and innovative thinking. It also offers an excellent
-            opportunity to <strong>exhibit, promote, and advertise your products</strong>, while connecting with a
-            vibrant community of aspiring technologists and innovators.
+            <strong>Inter-Collegiate Technical Competition</strong> titled <strong>"Techtonic – The Epicenter of
+                Innovation"</strong>, exclusively for undergraduate Computer Science students from Arts and Science
+            colleges in and around Chennai.
+            <br><br>
+            The event is scheduled to be held on <strong>25th September 2026</strong> at
+            <strong>Anderson Hall, Madras Christian College</strong>.
+            <br><br>
+            The term <strong>"Techtonic"</strong> embodies the profound and transformative influence of technology on
+            the world, evoking the idea of a seismic shift that drives significant advancements across the technological
+            landscape. The event seeks to explore, celebrate, and showcase groundbreaking innovations that are
+            redefining the future of technology.
+            <br><br>
+            Featuring <strong>six diverse technical events</strong>, Techtonic provides an engaging and competitive
+            platform for students to demonstrate their technical expertise, creativity, and innovative thinking. It also
+            offers an excellent opportunity to <strong>exhibit, promote, and advertise your products</strong>, while
+            connecting with a vibrant community of aspiring technologists and innovators.
         </p>
     </section>
 
-    <section id="Register">
+    <!-- ── Register Section ── -->
+    <section id="Register" data-aos="fade-up" data-aos-duration="700">
         <h2>Register</h2>
-        <button onclick="window.location.href='/registerall'">Paper Presentation (Catalyst)</button>
-        <button onclick="window.location.href='/registerall'">Web Design (WebCraft)</button>
-        <button onclick="window.location.href='/registerall'">Debugging (Breakpoint)</button>
-        <button onclick="window.location.href='/registerall'">Quiz (Synapse)</button>
-        <button onclick="window.location.href='/registerall'">Digital Collage (Pixelora)</button>
-        <button onclick="window.location.href='/registerazp'">Ad zap (BrandStorm)</button>
+        <div class="event-cards-grid">
+
+            <button class="event-card-btn" id="btn-catalyst"
+                onclick="window.location.href='/registerall'">
+                <span class="event-icon">📄</span>
+                <span class="event-title">Catalyst</span>
+                Paper Presentation
+            </button>
+
+            <button class="event-card-btn" id="btn-breakpoint"
+                onclick="window.location.href='/registerall'">
+                <span class="event-icon">🐛</span>
+                <span class="event-title">Breakpoint</span>
+                Debugging
+            </button>
+
+            <button class="event-card-btn" id="btn-brandstorm"
+                onclick="window.location.href='/registerazp'">
+                <span class="event-icon">📢</span>
+                <span class="event-title">BrandStorm</span>
+                Ad Zap
+            </button>
+
+            <button class="event-card-btn" id="btn-synapse"
+                onclick="window.location.href='/registerall'">
+                <span class="event-icon">🧠</span>
+                <span class="event-title">Synapse</span>
+                Quiz
+            </button>
+
+            <button class="event-card-btn" id="btn-webcraft"
+                onclick="window.location.href='/registerall'">
+                <span class="event-icon">🌐</span>
+                <span class="event-title">WebCraft</span>
+                Web Designing
+            </button>
+
+            <button class="event-card-btn" id="btn-pixelora"
+                onclick="window.location.href='/registerall'">
+                <span class="event-icon">🎨</span>
+                <span class="event-title">Pixelora</span>
+                Digital Collage
+            </button>
+
+        </div>
     </section>
 
-    <section id="DwnldRB">
+    <!-- ── Download Rulebook ── -->
+    <section id="DwnldRB" data-aos="fade-up" data-aos-duration="700">
         <h2>Download Rule Book</h2>
-        <button type="button"
-            onclick="window.open('https://drive.google.com/file/d/1S0QrmhqD4lBH4vsLEpU0mIhnrwCXJcUt/view?usp=drivesdk','_blank')"
-            style="
-        background-color: var(--primary-color);
-        color: #111;
-        font-family:'Times New Roman', Times, serif;
-        font-size: 1.2em;
-        font-weight: bold;
-        padding: 12px 32px;
-        border: none;
-        border-radius: 6px;
-        box-shadow: 0 0 12px var(--primary-color);
-        cursor: pointer;
-        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-        margin: 12px 0;
-        letter-spacing: 1px;
-        " onmouseover="this.style.backgroundColor='#00c4b3'; this.style.color='#f0f0f0';"
-            onmouseout="this.style.backgroundColor='var(--primary-color)'; this.style.color='#111';">
-            Download Rule Book
+        <button class="download-btn" id="btn-rulebook"
+            onclick="window.open('https://drive.google.com/file/d/1S0QrmhqD4lBH4vsLEpU0mIhnrwCXJcUt/view?usp=drivesdk','_blank')">
+            ⬇ Download Rule Book
         </button>
-
-        <button type="button"
-            onclick="window.open('https://drive.google.com/file/d/1Oz1w9R3toQghLSelaXULkuCfNWQVvQpe/view?usp=sharing','_blank')"
-            style="
-            background-color: var(--primary-color);
-            color: #111;
-            font-family:'Times New Roman', Times, serif;
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 12px 32px;
-            border: none;
-            border-radius: 6px;
-            box-shadow: 0 0 12px var(--primary-color);
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-            margin: 12px 0;
-            letter-spacing: 1px;
-            " onmouseover="this.style.backgroundColor='#00c4b3'; this.style.color='#f0f0f0';"
-            onmouseout="this.style.backgroundColor='var(--primary-color)'; this.style.color='#111';">
-            View Digital Collage Rules
+        <button class="download-btn" id="btn-collage-rules"
+            onclick="window.open('https://drive.google.com/file/d/1Oz1w9R3toQghLSelaXULkuCfNWQVvQpe/view?usp=sharing','_blank')">
+            🖼 View Pixelora Rules
         </button>
-
     </section>
 
-    <!-- Schedule Section -->
-    <section id="schedule">
-        <h2>Event Schedule(NOT FINALISED)</h2>
-        <p><strong>10:30 AM</strong> - Paper Presentation (Idea Ignite)</p>
-        <p><strong>10:30 AM</strong> - Debugging (Bug Busters)</p>
-        <p><strong>12:00 PM</strong> - Ad zap (Brand Blitz)</p>
-        <p><strong>1:00 PM</strong> - Lunch Break</p>
-        <p><strong>2:00 PM</strong> - Quiz (Mind Mash)</p>
-        <p><strong>2:00 PM</strong> - Web Designing (Cyber Canvas)</p>
-        <p><strong>Online</strong> - Digital Collage (Pixel Palette)</p>
+    <!-- ── Schedule Section ── -->
+    <section id="schedule" data-aos="fade-up" data-aos-duration="700">
+        <h2>Event Schedule <span style="font-size:0.6em;color:#666;font-weight:400;">(Not Finalised)</span></h2>
+        <div class="schedule-item">
+            <span class="schedule-time">10:30 AM</span>
+            <span class="schedule-event">Catalyst – Paper Presentation</span>
+        </div>
+        <div class="schedule-item">
+            <span class="schedule-time">10:30 AM</span>
+            <span class="schedule-event">Breakpoint – Debugging</span>
+        </div>
+        <div class="schedule-item">
+            <span class="schedule-time">12:00 PM</span>
+            <span class="schedule-event">BrandStorm – Ad Zap</span>
+        </div>
+        <div class="schedule-item">
+            <span class="schedule-time">1:00 PM</span>
+            <span class="schedule-event">Lunch Break</span>
+        </div>
+        <div class="schedule-item">
+            <span class="schedule-time">2:00 PM</span>
+            <span class="schedule-event">Synapse – Quiz</span>
+        </div>
+        <div class="schedule-item">
+            <span class="schedule-time">2:00 PM</span>
+            <span class="schedule-event">WebCraft – Web Designing</span>
+        </div>
+        <div class="schedule-item">
+            <span class="schedule-time">Online</span>
+            <span class="schedule-event">Pixelora – Digital Collage</span>
+        </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
+    <!-- ── Contact Section ── -->
+    <section id="contact" data-aos="fade-up" data-aos-duration="700">
         <h2>Contact Us</h2>
-        <p>Email: bsc.cs@mcc.edu.in</p>
+        <p>Email: <a href="mailto:bsc.cs@mcc.edu.in">bsc.cs@mcc.edu.in</a></p>
     </section>
 
-    <!-- Footer -->
+    <!-- ── Footer ── -->
     <footer>
-        &copy; 2026 Department of Computer Science
+        &copy; 2026 Department of Computer Science – Madras Christian College
     </footer>
+
+    <!-- ── AOS Library ── -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // ── Init AOS ──────────────────────────────────────────────
+        AOS.init({
+            once: true,
+            offset: 80,
+            duration: 700,
+            easing: 'ease-out-cubic'
+        });
+
+        // ── Hamburger Menu Toggle ─────────────────────────────────
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks   = document.getElementById('nav-links');
+
+        function toggleMenu() {
+            navLinks.classList.toggle('show');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuToggle.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
+        });
+
+        // Close menu when a nav link is clicked (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('show'));
+        });
+
+        // ── Countdown Timer ───────────────────────────────────────
+        // Target: 25 Sept 2026 00:00:00 IST (UTC+5:30)
+        const EVENT_DATE = new Date('2026-09-25T00:00:00+05:30');
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function updateCountdown() {
+            const now  = new Date();
+            const diff = EVENT_DATE - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown-grid').style.display = 'none';
+                document.getElementById('countdown-ended').style.display = 'block';
+                return;
+            }
+
+            const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent    = pad(days);
+            document.getElementById('cd-hours').textContent   = pad(hours);
+            document.getElementById('cd-minutes').textContent = pad(minutes);
+            document.getElementById('cd-seconds').textContent = pad(seconds);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ── Particle / Circuit Canvas ─────────────────────────────
+        (function () {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx    = canvas.getContext('2d');
+
+            let W, H, particles, animId;
+            const NUM_PARTICLES = 55;
+            const MAX_DIST      = 140;
+            const COLOR         = '0, 255, 231'; // --primary-color RGB
+
+            function resize() {
+                W = canvas.width  = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+            function createParticles() {
+                particles = [];
+                for (let i = 0; i < NUM_PARTICLES; i++) {
+                    particles.push({
+                        x:  Math.random() * W,
+                        y:  Math.random() * H,
+                        vx: randBetween(-0.28, 0.28),
+                        vy: randBetween(-0.28, 0.28),
+                        r:  randBetween(1.2, 2.5)
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+
+                // Update positions
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > W) p.vx *= -1;
+                    if (p.y < 0 || p.y > H) p.vy *= -1;
+                });
+
+                // Draw connections
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx   = particles[i].x - particles[j].x;
+                        const dy   = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < MAX_DIST) {
+                            const alpha = (1 - dist / MAX_DIST) * 0.22;
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(${COLOR}, ${alpha})`;
+                            ctx.lineWidth   = 0.8;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw nodes
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${COLOR}, 0.5)`;
+                    ctx.fill();
+                });
+
+                animId = requestAnimationFrame(draw);
+            }
+
+            function init() {
+                resize();
+                createParticles();
+                if (animId) cancelAnimationFrame(animId);
+                draw();
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                createParticles();
+            });
+
+            init();
+        })();
+    </script>
 
 </body>
 

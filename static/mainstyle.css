@@ -1,89 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────────── */
 :root {
     --primary-color: #00ffe7;
+    --primary-dim:   rgba(0, 255, 231, 0.12);
+    --primary-glow:  rgba(0, 255, 231, 0.45);
+    --primary-border:rgba(0, 255, 231, 0.25);
+    --bg-base:       #0a0a0a;
+    --bg-card:       rgba(12, 12, 12, 0.78);
+    --bg-nav:        rgba(8, 8, 8, 0.92);
+    --text-main:     #f0f0f0;
+    --text-muted:    #999999;
+    --radius-card:   14px;
+    --transition:    0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* ─── RESET & BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
-    margin: 0;
-    font-family: 'Brush Script MT (cursive)', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-    color: #ffffff;
+    font-family: 'Outfit', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-base);
     background-image: url("backgroundM.png");
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
-    padding: 0;
-    box-sizing: border-box;
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Ensure all elements use border-box */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* ─── PARTICLE CANVAS ────────────────────────────────────────── */
+#particle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
 }
 
-/* Navigation bar */
+/* All main content sits above canvas */
+nav, .C_name, .hero, section, footer, #countdown-section {
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────────── */
 nav {
-    background-color: #111;
-    padding: 15px 20px;
+    background: var(--bg-nav);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 14px 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid var(--primary-border);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 nav .logo {
     font-size: 1.5em;
+    font-weight: 800;
     color: var(--primary-color);
-    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 18px var(--primary-glow);
 }
 
-nav .logo p {
-    margin: 0;
-}
+nav .logo p { margin: 0; }
 
 nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
-}
-
-nav ul li {
-    margin-left: 20px;
+    gap: 6px;
+    align-items: center;
 }
 
 nav ul li a {
-    color: #ccc;
+    color: #bbb;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
-    padding: 5px;
+    font-size: 0.95em;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+    letter-spacing: 0.3px;
 }
 
 nav ul li a:hover {
     color: var(--primary-color);
+    border-color: var(--primary-border);
+    background: var(--primary-dim);
+    box-shadow: 0 0 12px var(--primary-glow);
 }
 
-@media (max-width: 767px) {
-    nav {
-        position: static;
-        /* Removes sticky behavior */
-    }
+/* Hamburger toggle */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background var(--transition);
+}
+.menu-toggle:hover { background: var(--primary-dim); }
+.menu-toggle span {
+    height: 2.5px;
+    width: 24px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    display: block;
+    transition: all var(--transition);
 }
 
-/* College name section */
+/* ─── COLLEGE NAME BANNER ────────────────────────────────────── */
 .C_name {
     text-align: center;
-    font-size: 18px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px 15px;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.72);
+    border-bottom: 1px solid var(--primary-border);
+    padding: 18px 20px;
     width: 100%;
+    backdrop-filter: blur(8px);
 }
 
 .C_name div {
@@ -91,77 +139,399 @@ nav ul li a:hover {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 14px;
 }
 
 .C_name h1 {
-    font-size: 1.8em;
+    font-size: 1.55em;
+    font-weight: 700;
     margin: 0;
     text-align: center;
+    color: var(--text-main);
 }
 
-.C_name h2,
-.C_name h4 {
+.C_name h2, .C_name h4 {
     color: var(--primary-color);
-    margin: 10px 0;
+    font-weight: 500;
+    margin: 8px 0 0;
+    letter-spacing: 0.5px;
 }
 
 .logo img {
     width: 30px;
-    height: 50px;
     max-width: 100%;
     height: auto;
 }
 
-/* Main hero section */
+/* ─── HERO ───────────────────────────────────────────────────── */
 .hero {
     text-align: center;
-    padding: 60px 20px;
-    background: rgba(0, 0, 0, 0.3);
+    padding: 60px 20px 50px;
+    background: rgba(0, 0, 0, 0.25);
 }
 
 .hero img {
-    max-width: 100%;
+    max-width: min(85%, 520px);
     height: auto;
+    filter: drop-shadow(0 0 28px var(--primary-glow));
+    animation: heroFloat 4s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
 }
 
 .hero h1 {
     font-size: 3em;
     margin-bottom: 20px;
     color: var(--primary-color);
+    text-shadow: 0 0 30px var(--primary-glow);
 }
 
 .hero p {
-    font-size: 1.2em;
+    font-size: 1.15em;
     max-width: 600px;
     margin: auto;
-    color: #ddd;
+    color: #ccc;
 }
 
-/* Form container styling */
+/* ─── COUNTDOWN TIMER ────────────────────────────────────────── */
+#countdown-section {
+    padding: 50px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.45);
+    border-top: 1px solid var(--primary-border);
+    border-bottom: 1px solid var(--primary-border);
+    backdrop-filter: blur(6px);
+}
+
+#countdown-section h2 {
+    font-size: 1.2em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+#countdown-section .countdown-date {
+    font-size: 1em;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.countdown-box {
+    background: var(--bg-card);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-card);
+    padding: 22px 28px;
+    min-width: 100px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 20px rgba(0, 255, 231, 0.08), inset 0 1px 0 rgba(0, 255, 231, 0.1);
+    transition: box-shadow var(--transition), transform var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    animation: scanLine 2.5s linear infinite;
+}
+
+@keyframes scanLine {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.countdown-box:hover {
+    box-shadow: 0 0 32px rgba(0, 255, 231, 0.2);
+    transform: translateY(-4px);
+}
+
+.countdown-box .count-num {
+    font-size: 3em;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-shadow: 0 0 20px var(--primary-glow);
+    line-height: 1;
+    display: block;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+}
+
+.countdown-box .count-label {
+    font-size: 0.72em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    display: block;
+}
+
+#countdown-ended {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 0 0 24px var(--primary-glow);
+    letter-spacing: 2px;
+    display: none;
+}
+
+/* ─── SECTIONS (GLASS CARDS) ─────────────────────────────────── */
+section {
+    padding: 56px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+section:not(#Register):not(#DwnldRB) {
+    background: var(--bg-card);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    margin: 28px auto;
+    padding: 48px 36px;
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 1.75em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 48px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+/* About text */
+#about p {
+    color: #ccc;
+    font-size: 1.02em;
+    line-height: 1.85;
+    text-align: justify;
+}
+
+#about strong { color: var(--primary-color); font-weight: 600; }
+
+/* Schedule */
+#schedule .schedule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+#schedule .schedule-item:last-child { border-bottom: none; }
+
+#schedule .schedule-time {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.95em;
+    min-width: 90px;
+    white-space: nowrap;
+}
+
+#schedule .schedule-event {
+    color: #ddd;
+    font-size: 0.98em;
+}
+
+/* Contact */
+#contact p { color: #ccc; font-size: 1em; }
+#contact a { color: var(--primary-color); text-decoration: none; }
+#contact a:hover { text-shadow: 0 0 8px var(--primary-color); }
+
+/* ─── REGISTER SECTION ───────────────────────────────────────── */
+#Register {
+    padding: 56px 24px;
+    max-width: 1000px;
+    margin: 28px auto;
+    background: var(--bg-card);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+#Register h2 { margin-bottom: 28px; }
+
+.event-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.event-card-btn {
+    background: rgba(0, 255, 231, 0.05);
+    border: 1px solid var(--primary-border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    cursor: pointer;
+    text-align: center;
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95em;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.event-card-btn .event-icon {
+    font-size: 1.8em;
+    display: block;
+}
+
+.event-card-btn .event-title {
+    color: var(--primary-color);
+    font-size: 0.82em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.event-card-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0,255,231,0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.event-card-btn:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 24px rgba(0, 255, 231, 0.18);
+    transform: translateY(-4px);
+    color: var(--primary-color);
+}
+
+.event-card-btn:hover::before { opacity: 1; }
+
+/* Legacy button styles (used in other templates) */
+#Register button {
+    background-color: transparent;
+    border: 1px solid var(--primary-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 8px 8px;
+    font-weight: 600;
+    font-size: 0.97em;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    transition: all var(--transition);
+    color: var(--text-main);
+    letter-spacing: 0.3px;
+}
+
+#Register button:hover {
+    background-color: var(--primary-dim);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 18px rgba(0, 255, 231, 0.18);
+    transform: translateY(-3px);
+}
+
+/* ─── DOWNLOAD RULEBOOK SECTION ──────────────────────────────── */
+#DwnldRB {
+    padding: 56px 24px;
+    max-width: 1000px;
+    margin: 28px auto;
+    background: var(--bg-card);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--primary-color);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1em;
+    font-weight: 700;
+    padding: 14px 32px;
+    border: 1.5px solid var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all var(--transition);
+    margin: 10px 10px 10px 0;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    box-shadow: 0 0 14px rgba(0, 255, 231, 0.12);
+}
+
+.download-btn:hover {
+    background: var(--primary-color);
+    color: #0a0a0a;
+    box-shadow: 0 0 28px rgba(0, 255, 231, 0.35);
+    transform: translateY(-3px);
+}
+
+/* ─── FORM STYLES ────────────────────────────────────────────── */
 #Registration-form,
 #admin-login {
-    max-width: 400px;
+    max-width: 420px;
     width: 100%;
     margin: 30px auto;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px var(--primary-color);
+    background: rgba(10, 10, 10, 0.82);
+    padding: 32px 28px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--primary-border);
+    box-shadow: 0 0 32px rgba(0, 255, 231, 0.1);
+    backdrop-filter: blur(16px);
 }
 
-/* Label styling */
 #Registration-form label,
 #admin-login label {
     display: block;
     color: var(--primary-color);
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 6px;
-    font-family: 'Times New Roman';
-    font-size: 1.1em;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95em;
+    letter-spacing: 0.3px;
 }
 
-/* Input fields styling */
 #Registration-form input[type="text"],
 #Registration-form input[type="password"],
 #Registration-form input[type="email"],
@@ -171,18 +541,17 @@ nav ul li a:hover {
 #admin-login input[type="email"],
 #admin-login input[type="tel"] {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1.5px solid var(--primary-color);
-    border-radius: 5px;
-    background-color: #1a1a1a;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1.5px solid rgba(0, 255, 231, 0.2);
+    border-radius: 8px;
+    background-color: rgba(20, 20, 20, 0.9);
     color: #eee;
-    font-size: 1em;
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
-    transition: border-color 0.3s ease;
+    font-size: 0.97em;
+    font-family: 'Outfit', sans-serif;
+    transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-/* Input focus effect */
 #Registration-form input[type="text"]:focus,
 #Registration-form input[type="password"]:focus,
 #Registration-form input[type="email"]:focus,
@@ -191,51 +560,52 @@ nav ul li a:hover {
 #admin-login input[type="password"]:focus,
 #admin-login input[type="email"]:focus,
 #admin-login input[type="tel"]:focus {
-    border-color: #00fff0;
+    border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 5px var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
 }
 
-/* Submit button styling */
 #Registration-form input[type="submit"],
 #admin-login input[type="submit"] {
-    background-color: var(--primary-color);
+    background: var(--primary-color);
     border: none;
-    color: #111;
-    font-weight: bold;
-    font-size: 1.2em;
-    padding: 12px 25px;
-    border-radius: 6px;
+    color: #0a0a0a;
+    font-weight: 700;
+    font-size: 1.05em;
+    padding: 14px 25px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Brush Script MT', cursive;
+    transition: all var(--transition);
+    font-family: 'Outfit', sans-serif;
     width: 100%;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 16px rgba(0, 255, 231, 0.2);
 }
 
-/* Submit button hover */
 #Registration-form input[type="submit"]:hover,
 #admin-login input[type="submit"]:hover {
-    background-color: #00c4b3;
-    color: #f0f0f0;
+    background: #00c4b3;
+    box-shadow: 0 0 28px rgba(0, 255, 231, 0.35);
+    transform: translateY(-2px);
 }
 
-/* Select dropdown styling for Event */
+/* Select dropdown */
 #Events {
     width: 100%;
-    padding: 10px 12px;
+    padding: 11px 14px;
     margin-top: 6px;
-    background-color: #1a1a1a;
+    margin-bottom: 18px;
+    background-color: rgba(20, 20, 20, 0.9);
     color: #eee;
-    border: 1.5px solid var(--primary-color);
-    border-radius: 5px;
-    font-size: 1em;
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    border: 1.5px solid rgba(0, 255, 231, 0.2);
+    border-radius: 8px;
+    font-size: 0.97em;
+    font-family: 'Outfit', sans-serif;
     appearance: none;
-    /* Remove default arrows for most browsers */
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition);
     background-image:
         linear-gradient(45deg, transparent 50%, var(--primary-color) 50%),
         linear-gradient(135deg, var(--primary-color) 50%, transparent 50%);
@@ -246,191 +616,38 @@ nav ul li a:hover {
     background-repeat: no-repeat;
 }
 
-#Events:hover,
-#Events:focus {
-    border-color: #00fff0;
+#Events:hover, #Events:focus {
+    border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 5px var(--primary-color);
-    background-image:
-        linear-gradient(45deg, transparent 50%, #00fff0 50%),
-        linear-gradient(135deg, #00fff0 50%, transparent 50%);
+    box-shadow: 0 0 8px rgba(0, 255, 231, 0.2);
 }
 
-/* Sections */
-section {
-    padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
-}
-
-h2 {
-    color: var(--primary-color);
-}
-
-/* Footer */
+/* ─── FOOTER ─────────────────────────────────────────────────── */
 footer {
     text-align: center;
-    padding: 20px;
-    background-color: #111;
-    color: #aaa;
-    font-size: 0.9em;
+    padding: 28px 20px;
+    background: rgba(5, 5, 5, 0.9);
+    border-top: 1px solid var(--primary-border);
+    color: var(--text-muted);
+    font-size: 0.88em;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
 }
 
-/* Mobile-specific adjustments */
-@media (max-width: 768px) {
-    nav {
-        padding: 10px 15px;
-    }
-
-    nav ul {
-        width: 100%;
-        justify-content: center;
-        margin-top: 10px;
-    }
-
-    nav ul li {
-        margin: 5px 10px;
-    }
-
-    .C_name {
-        font-size: 16px;
-        padding: 15px 10px;
-    }
-
-    .C_name h1 {
-        font-size: 1.4em;
-    }
-
-    .C_name img {
-        width: 60px;
-        height: 75px;
-    }
-
-    .hero {
-        padding: 40px 15px;
-    }
-
-    .hero h1 {
-        font-size: 2em;
-    }
-
-    section {
-        padding: 30px 15px;
-    }
-
-    #Registration-form {
-        margin: 20px 10px;
-        padding: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
-
-    nav .logo {
-        font-size: 1.3em;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav ul li {
-        margin: 8px 0;
-    }
-
-    .C_name h1 {
-        font-size: 1.2em;
-    }
-
-    .C_name div {
-        flex-direction: column;
-    }
-
-    .hero h1 {
-        font-size: 1.8em;
-    }
-
-    section {
-        padding: 20px 10px;
-    }
-
-    #Registration-form {
-        margin: 15px 5px;
-        padding: 15px;
-    }
-}
-
-@media (max-width: 360px) {
-    .C_name h1 {
-        font-size: 1.1em;
-    }
-
-    .hero h1 {
-        font-size: 1.6em;
-    }
-
-    nav .logo {
-        font-size: 1.2em;
-    }
-}
-
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.menu-toggle span {
-    height: 3px;
-    width: 25px;
-    background: var(--primary-color);
-    margin: 4px 0;
-    transition: 0.3s;
-}
-
-/* Hide nav items on mobile */
-@media (max-width: 768px) {
-    nav ul {
-        display: none;
-        /* hidden by default */
-        width: 100%;
-        flex-direction: column;
-        text-align: center;
-        background-color: #111;
-        padding: 10px 0;
-    }
-
-    nav ul.show {
-        display: flex;
-        /* show when toggled */
-    }
-
-    .menu-toggle {
-        display: flex;
-        /* show hamburger */
-    }
-
-    nav {
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
-/* Data Table & Admin Dashboard Styling */
+/* ─── ADMIN / DASHBOARD STYLES (unchanged) ───────────────────── */
 .dashboard-container {
     max-width: 1200px;
     width: 95%;
     margin: 40px auto;
     background: rgba(0, 0, 0, 0.75);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: var(--radius-card);
     box-shadow: 0 0 15px var(--primary-color);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(0, 255, 231, 0.2);
+    position: relative;
+    z-index: 1;
 }
 
 .dashboard-header {
@@ -448,30 +665,26 @@ footer {
     color: var(--primary-color);
     margin: 0;
     font-size: 2em;
-    font-family: 'Times New Roman', Tahoma, Geneva, sans-serif;
+    font-family: 'Outfit', sans-serif;
     text-shadow: 0 0 8px rgba(0, 255, 231, 0.4);
 }
 
-.dashboard-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+.dashboard-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .btn-action {
     background-color: var(--primary-color);
     color: #111;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 700;
     font-size: 1em;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: all 0.3s ease;
+    transition: all var(--transition);
     box-shadow: 0 0 8px var(--primary-color);
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 .btn-action:hover {
@@ -485,14 +698,14 @@ footer {
     color: var(--primary-color);
     border: 1.5px solid var(--primary-color);
     padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 700;
     font-size: 1em;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: all 0.3s ease;
-    font-family: 'Times New Roman', Times, serif;
+    transition: all var(--transition);
+    font-family: 'Outfit', sans-serif;
 }
 
 .btn-action-outline:hover {
@@ -504,7 +717,7 @@ footer {
 .table-responsive {
     width: 100%;
     overflow-x: auto;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid rgba(0, 255, 231, 0.3);
     background: rgba(15, 15, 15, 0.6);
 }
@@ -513,7 +726,7 @@ footer {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 0.95em;
 }
 
@@ -521,7 +734,7 @@ footer {
     background-color: rgba(0, 255, 231, 0.15);
     color: var(--primary-color);
     padding: 14px 16px;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-bottom: 2px solid var(--primary-color);
@@ -529,9 +742,7 @@ footer {
     white-space: nowrap;
 }
 
-.data-table th:last-child {
-    border-right: none;
-}
+.data-table th:last-child { border-right: none; }
 
 .data-table td {
     padding: 12px 16px;
@@ -541,21 +752,10 @@ footer {
     white-space: nowrap;
 }
 
-.data-table td:last-child {
-    border-right: none;
-}
-
-.data-table tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-.data-table tbody tr:hover {
-    background-color: rgba(0, 255, 231, 0.08);
-}
-
-.data-table tbody tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.02);
-}
+.data-table td:last-child { border-right: none; }
+.data-table tbody tr { transition: background-color 0.2s ease; }
+.data-table tbody tr:hover { background-color: rgba(0, 255, 231, 0.08); }
+.data-table tbody tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
 
 .btn-delete {
     display: inline-block;
@@ -563,10 +763,10 @@ footer {
     background-color: rgba(255, 77, 77, 0.15);
     color: #ff6b6b;
     border: 1px solid #ff4d4d;
-    border-radius: 4px;
+    border-radius: 6px;
     text-decoration: none;
     font-size: 0.85em;
-    font-weight: bold;
+    font-weight: 700;
     transition: all 0.2s ease;
 }
 
@@ -585,4 +785,72 @@ footer {
     border: 1px solid var(--primary-color);
     vertical-align: middle;
     margin-left: 8px;
+}
+
+/* ─── AOS ANIMATION OVERRIDES ────────────────────────────────── */
+[data-aos] { will-change: transform, opacity; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    nav { padding: 12px 18px; }
+
+    nav ul {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(8, 8, 8, 0.97);
+        padding: 14px 0;
+        gap: 4px;
+        border-top: 1px solid var(--primary-border);
+        margin-top: 10px;
+    }
+
+    nav ul.show { display: flex; }
+
+    .menu-toggle { display: flex; }
+
+    nav { justify-content: space-between; align-items: center; flex-wrap: wrap; }
+
+    .C_name { font-size: 14px; padding: 14px 12px; }
+    .C_name h1 { font-size: 1.2em; }
+    .C_name div { flex-direction: column; gap: 8px; }
+
+    .hero { padding: 40px 16px 36px; }
+    .hero h1 { font-size: 2em; }
+
+    section { padding: 36px 20px; margin: 18px auto; }
+    section:not(#Register):not(#DwnldRB) { padding: 32px 20px; }
+
+    #Register, #DwnldRB { padding: 36px 20px; }
+
+    .countdown-box { padding: 18px 18px; min-width: 80px; }
+    .countdown-box .count-num { font-size: 2.2em; }
+    .countdown-grid { gap: 12px; }
+
+    .event-cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+
+    #Registration-form { margin: 20px 12px; padding: 24px 18px; }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 14px; }
+    nav .logo { font-size: 1.3em; }
+
+    .countdown-box { min-width: 70px; padding: 14px 12px; }
+    .countdown-box .count-num { font-size: 1.8em; }
+    .countdown-box .count-label { font-size: 0.62em; letter-spacing: 2px; }
+    .countdown-grid { gap: 8px; }
+
+    .event-cards-grid { grid-template-columns: 1fr 1fr; }
+
+    .hero img { max-width: 90%; }
+
+    section:not(#Register):not(#DwnldRB) { padding: 28px 16px; }
+    #Registration-form { margin: 14px 8px; padding: 20px 14px; }
+}
+
+@media (max-width: 360px) {
+    .C_name h1 { font-size: 1em; }
+    .event-cards-grid { grid-template-columns: 1fr; }
 }
