@@ -4,11 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techtonic - Data Entries</title>
+    <title>Techtonic 2026 – Admin Dashboard & Analytics</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mainstyle.css') }}">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+
+    <!-- Particle Canvas (tech circuit background) -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
     <!-- Navigation Bar -->
     <nav>
@@ -24,16 +37,80 @@
 
     <!-- Main Dashboard Section -->
     <div class="dashboard-container">
+        <!-- Header -->
         <div class="dashboard-header">
-            <h1>Data Entries <span class="badge">{{ lists|length if lists else 0 }} Total</span></h1>
+            <h1>Analytics & Registrations <span class="badge">{{ lists|length if lists else 0 }} Total</span></h1>
             <div class="dashboard-actions">
-                <a href="/download7798" class="btn-action">Download Excel</a>
+                <a href="/download7798" class="btn-action">⬇ Download Excel</a>
                 <a href="/" class="btn-action-outline">Home</a>
             </div>
         </div>
 
+        <!-- Metric Stat Cards -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-total">{{ lists|length if lists else 0 }}</div>
+                    <div class="stat-label">Total Registrations</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-top-event" style="font-size: 1.25em;">-</div>
+                    <div class="stat-label">Top Event</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-active-events">-</div>
+                    <div class="stat-label">Events with Entries</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Distribution Bar Chart Section -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h2 class="chart-title">📊 Event Registration Distribution</h2>
+                    <p class="chart-subtitle">Live breakdown of registrations per event • Click any bar or filter pill to filter table</p>
+                </div>
+                <div>
+                    <span class="filter-status-badge" id="chart-filter-status">Showing: All Events</span>
+                </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <canvas id="eventBarChart"></canvas>
+            </div>
+
+            <!-- Quick Filter Pills -->
+            <div class="event-filters">
+                <span class="filter-label">Quick Filter:</span>
+                <button class="event-filter-pill active" data-filter="ALL" onclick="filterByEvent('ALL')">
+                    All Events <span class="pill-count">{{ lists|length if lists else 0 }}</span>
+                </button>
+                {% if event_counts %}
+                    {% for event_name, count in event_counts.items() %}
+                    <button class="event-filter-pill" data-filter="{{ event_name }}" onclick="filterByEvent('{{ event_name }}')">
+                        {{ event_name }} <span class="pill-count">{{ count }}</span>
+                    </button>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Registration Records Table -->
+        <div class="table-section-header">
+            <h2 class="table-section-title">📋 Registration Records</h2>
+            <span class="filter-status-badge" id="table-filter-info">Showing {{ lists|length if lists else 0 }} records</span>
+        </div>
+
         <div class="table-responsive">
-            <table class="data-table">
+            <table class="data-table" id="registrations-table">
                 <thead>
                     <tr>
                         <th>Actions</th>
@@ -51,8 +128,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for val in lists %}
-                    <tr>
+                    {% for val in (lists or []) %}
+                    <tr data-event="{{ val.Event }}">
                         <td>
                             <a href="/delete43127S/{{val.SNo}}" class="btn-delete"
                                 onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
@@ -66,12 +143,12 @@
                         <td>{{val.Department}}</td>
                         <td>{{val.phno}}</td>
                         <td>{{val.Mailid}}</td>
-                        <td>{{val.Event}}</td>
-                        <td>{{val.Cdate or val.CDate}}</td>
+                        <td><span class="badge" style="margin-left:0;font-size:0.85em;">{{val.Event}}</span></td>
+                        <td>{{val.CDate or val.Cdate or '-'}}</td>
                     </tr>
                     {% else %}
-                    <tr>
-                        <td colspan="11" style="text-align: center; padding: 40px; color: #aaa;">
+                    <tr id="empty-state-row">
+                        <td colspan="12" style="text-align: center; padding: 40px; color: #aaa;">
                             No data entries found in the database.
                         </td>
                     </tr>
@@ -83,8 +160,278 @@
 
     <!-- Footer -->
     <footer>
-        &copy; 2026 Department of Computer Science
+        &copy; 2026 Department of Computer Science – Madras Christian College
     </footer>
+
+    <!-- Safe JSON Data Script Block -->
+    <script id="event-counts-data" type="application/json">
+        {{ (event_counts or {}) | tojson | safe }}
+    </script>
+
+    <!-- Background Particles & Chart Logic -->
+    <script>
+        // ── Event Data from Backend ──────────────────────────────────────
+        const dataScript = document.getElementById('event-counts-data');
+        let rawEventCounts = {};
+        try {
+            rawEventCounts = JSON.parse(dataScript ? dataScript.textContent : '{}');
+        } catch (e) {
+            console.error('Error parsing event counts:', e);
+        }
+        const eventLabels = Object.keys(rawEventCounts);
+        const eventData = Object.values(rawEventCounts);
+
+        // ── Calculate Summary Stats ──────────────────────────────────────
+        let maxCount = 0;
+        let topEvent = 'None';
+        let activeEventsCount = 0;
+
+        eventLabels.forEach((label, idx) => {
+            const count = eventData[idx];
+            if (count > 0) activeEventsCount++;
+            if (count > maxCount) {
+                maxCount = count;
+                // Shorten top event name if long
+                topEvent = label.split('–')[0].trim();
+            }
+        });
+
+        const topEventElem = document.getElementById('stat-top-event');
+        const activeEventsElem = document.getElementById('stat-active-events');
+        if (topEventElem) topEventElem.textContent = maxCount > 0 ? `${topEvent} (${maxCount})` : 'None';
+        if (activeEventsElem) activeEventsElem.textContent = `${activeEventsCount} of ${eventLabels.length}`;
+
+        // ── Initialize Chart.js Bar Chart ─────────────────────────────────
+        const chartCanvas = document.getElementById('eventBarChart');
+        if (chartCanvas) {
+            const ctx = chartCanvas.getContext('2d');
+
+            // Create gradient fill matching Techtonic theme
+            const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+            gradient.addColorStop(0, 'rgba(0, 255, 231, 0.85)');
+            gradient.addColorStop(0.5, 'rgba(0, 255, 231, 0.45)');
+            gradient.addColorStop(1, 'rgba(0, 255, 231, 0.12)');
+
+            const hoverGradient = ctx.createLinearGradient(0, 0, 0, 320);
+            hoverGradient.addColorStop(0, 'rgba(0, 255, 231, 1)');
+            hoverGradient.addColorStop(1, 'rgba(0, 255, 231, 0.6)');
+
+            // Shorten labels on smaller screens if needed
+            const formattedLabels = eventLabels.map(label => {
+                if (window.innerWidth < 600 && label.includes('–')) {
+                    return label.split('–')[0].trim();
+                }
+                return label;
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: formattedLabels,
+                    datasets: [{
+                        label: 'Registrations',
+                        data: eventData,
+                        backgroundColor: gradient,
+                        borderColor: '#00ffe7',
+                        borderWidth: 1.5,
+                        borderRadius: 8,
+                        borderSkipped: false,
+                        hoverBackgroundColor: hoverGradient,
+                        hoverBorderColor: '#ffffff',
+                        hoverBorderWidth: 2,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 900,
+                        easing: 'easeOutQuart'
+                    },
+                    layout: {
+                        padding: { top: 15, right: 10, left: 10, bottom: 5 }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(8, 14, 18, 0.95)',
+                            titleColor: '#00ffe7',
+                            bodyColor: '#ffffff',
+                            titleFont: { family: 'Outfit', size: 14, weight: '700' },
+                            bodyFont: { family: 'Outfit', size: 13, weight: '500' },
+                            borderColor: 'rgba(0, 255, 231, 0.4)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(items) {
+                                    const index = items[0].dataIndex;
+                                    return eventLabels[index];
+                                },
+                                label: function(context) {
+                                    const val = context.parsed.y;
+                                    return `Entries: ${val} registration${val === 1 ? '' : 's'}`;
+                                },
+                                afterLabel: function() {
+                                    return '💡 Click bar to filter table';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 255, 231, 0.06)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#b0b0b0',
+                                font: { family: 'Outfit', size: 12, weight: '500' },
+                                maxRotation: 25,
+                                minRotation: 0,
+                                autoSkip: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 255, 231, 0.08)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#888888',
+                                font: { family: 'Outfit', size: 12 },
+                                stepSize: 1,
+                                precision: 0
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const clickedIndex = elements[0].index;
+                            const selectedEvent = eventLabels[clickedIndex];
+                            filterByEvent(selectedEvent);
+                        }
+                    }
+                }
+            });
+        }
+
+        // ── Table Filtering Functionality ──────────────────────────────────
+        let currentFilter = 'ALL';
+
+        function filterByEvent(eventName) {
+            currentFilter = eventName;
+            const rows = document.querySelectorAll('#registrations-table tbody tr:not(#empty-state-row)');
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const rowEvent = row.getAttribute('data-event');
+                if (eventName === 'ALL' || rowEvent === eventName) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Update filter pill active states
+            document.querySelectorAll('.event-filter-pill').forEach(pill => {
+                if (pill.getAttribute('data-filter') === eventName) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+
+            // Update status badges
+            const filterStatusElem = document.getElementById('chart-filter-status');
+            const filterInfoElem = document.getElementById('table-filter-info');
+            const displayTitle = eventName === 'ALL' ? 'All Events' : eventName.split('–')[0].trim();
+            if (filterStatusElem) filterStatusElem.textContent = `Showing: ${displayTitle}`;
+            if (filterInfoElem) filterInfoElem.textContent = `Showing ${visibleCount} record${visibleCount === 1 ? '' : 's'}`;
+        }
+
+        // ── Background Particle Animation ───────────────────────────────────
+        (function () {
+            const canvas = document.getElementById('particle-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let W, H, particles = [];
+            const NUM_PARTICLES = 36;
+            const MAX_DIST = 110;
+            const COLOR = '0, 255, 231';
+            let animId;
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            function createParticles() {
+                particles = [];
+                for (let i = 0; i < NUM_PARTICLES; i++) {
+                    particles.push({
+                        x: Math.random() * W,
+                        y: Math.random() * H,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        r: Math.random() * 1.5 + 0.8
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > W) p.vx *= -1;
+                    if (p.y < 0 || p.y > H) p.vy *= -1;
+                });
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < MAX_DIST) {
+                            const alpha = (1 - dist / MAX_DIST) * 0.18;
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(${COLOR}, ${alpha})`;
+                            ctx.lineWidth = 0.7;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${COLOR}, 0.4)`;
+                    ctx.fill();
+                });
+
+                animId = requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                createParticles();
+            });
+
+            resize();
+            createParticles();
+            draw();
+        })();
+    </script>
 
 </body>
 

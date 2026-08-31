@@ -90,7 +90,25 @@ def dlt():
 def dashboard():
     if session.get("login") == "Admin":
         query = db.session.query(Todo).all()
-        return render_template("test.html", lists=query)
+        
+        # Standard events list for Techtonic 2026
+        standard_events = [
+            "Catalyst – Paper Presentation",
+            "Breakpoint – Debugging",
+            "Synapse – Quiz",
+            "WebCraft – Web Designing",
+            "Pixelora – Digital Collage",
+            "BrandStorm – Ad Zap"
+        ]
+        
+        # Count entries per event, keeping standard events first
+        event_counts = {evt: 0 for evt in standard_events}
+        for item in query:
+            if item.Event:
+                evt_name = item.Event.strip()
+                event_counts[evt_name] = event_counts.get(evt_name, 0) + 1
+        
+        return render_template("test.html", lists=query, event_counts=event_counts)
     return redirect("/admin-login")
 
 
