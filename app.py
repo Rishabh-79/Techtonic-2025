@@ -117,17 +117,43 @@ def dashboard():
 def dwnld():
     query = db.session.query(Todo).all()
 
-    # Extract data
-    data = [row.__dict__ for row in query]
-    for row in data:
-        row.pop('_sa_instance_state', None)  # Remove SQLAlchemy internal state
+    # Extract data with clean field names and timezone-naive datetimes for Excel compatibility
+    data = []
+    for row in query:
+        cdate = row.CDate
+        if isinstance(cdate, datetime) and cdate.tzinfo is not None:
+            cdate = cdate.astimezone(IST).replace(tzinfo=None)
+
+        data.append({
+            'SNo': row.SNo,
+            'S1_name': row.S1_name,
+            'S2_name': row.S2_name,
+            'S3_name': row.S3_name,
+            'S4_name': row.S4_name,
+            'S5_name': row.S5_name,
+            'Mailid': row.Mailid,
+            'Clg_name': row.Clg_name,
+            'Department': row.Department,
+            'Phone no': row.phno,
+            'Event': row.Event,
+            'CDate': cdate
+        })
 
     # Define the column order as per model definition
     columns_order = ['SNo', 'S1_name', 'S2_name', 'S3_name', 'S4_name', 'S5_name',
-                     'Mailid', 'Clg_name', 'Department',"Phone no", 'Event', 'CDate']
+                     'Mailid', 'Clg_name', 'Department', 'Phone no', 'Event', 'CDate']
 
     # Create DataFrame with specified column order
     df = pd.DataFrame(data, columns=columns_order)
+
+    # Ensure any remaining timezone-aware datetimes are converted to naive IST datetimes
+    if 'CDate' in df.columns:
+        if isinstance(df['CDate'].dtype, pd.DatetimeTZDtype):
+            df['CDate'] = df['CDate'].dt.tz_convert(IST).dt.tz_localize(None)
+        elif pd.api.types.is_object_dtype(df['CDate']):
+            df['CDate'] = df['CDate'].apply(
+                lambda x: x.astimezone(IST).replace(tzinfo=None) if isinstance(x, datetime) and x.tzinfo is not None else x
+            )
 
     # Create Excel file in memory
     output = io.BytesIO()
